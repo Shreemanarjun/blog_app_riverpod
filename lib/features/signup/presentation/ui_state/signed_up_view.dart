@@ -15,7 +15,6 @@ class SignedUpView extends StatelessWidget {
           fit: BoxFit.contain,
           height: context.screenHeight * 0.7,
           width: context.screenWidth,
-          filterQuality: FilterQuality.medium,
           alignment: Alignment.center,
         ).p8().box.color(Colors.white).make(),
       ),
