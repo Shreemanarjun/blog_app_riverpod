@@ -51,7 +51,6 @@ class _BlogAddingViewState extends State<BlogAddingView>
             fit: BoxFit.scaleDown,
             height: context.screenHeight * 0.5,
             width: context.screenWidth * 0.5,
-            filterQuality: FilterQuality.medium,
             alignment: Alignment.center,
             onLoaded: (c) {
               animationController

@@ -48,7 +48,6 @@ class _SplasViewState extends ConsumerState<SplashView> {
         'assets/animations/splash.json',
         fit: BoxFit.fill,
         height: context.screenHeight,
-        filterQuality: FilterQuality.medium,
         alignment: Alignment.center,
       ),
     );

@@ -22,7 +22,6 @@ class LoginErrorView extends StatelessWidget {
           fit: BoxFit.contain,
           height: context.screenHeight,
           width: context.screenWidth,
-          filterQuality: FilterQuality.medium,
           alignment: Alignment.center,
         ).objectCenter()),
         "Error".text.xl.bold.purple600.makeCentered(),
