@@ -18,7 +18,6 @@ class SignupInitialView extends StatelessWidget {
           fit: BoxFit.contain,
           height: context.screenHeight * 0.25,
           width: context.screenWidth,
-       filterQuality: FilterQuality.medium,
           alignment: Alignment.center,
         ).p8().box.color(Colors.white).make(),
       ),
