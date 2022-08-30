@@ -5,6 +5,7 @@ on:
     # Sequence of patterns matched against refs/heads
     branches:    
       - main
+      - master
 permissions: read-all
 jobs:
   build:
