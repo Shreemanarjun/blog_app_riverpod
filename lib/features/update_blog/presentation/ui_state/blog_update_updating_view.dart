@@ -14,7 +14,7 @@ class BlogUpdateUpdatingView extends StatelessWidget {
           child: Lottie.asset(
             "assets/animations/update.json",
             fit: BoxFit.scaleDown,
-            height: context.screenHeight * 0.9,
+            height: context.screenHeight * 0.8,
             width: context.screenWidth * 0.5,
             filterQuality: FilterQuality.medium,
             alignment: Alignment.center,
