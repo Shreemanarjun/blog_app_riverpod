@@ -45,5 +45,6 @@ final homeprovider =
       }
     },
   );
+
   return HomeStateNotifier(ref.read(blogrepository), dbservice)..getAllBlogs();
 }));

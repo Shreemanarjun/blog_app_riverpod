@@ -28,7 +28,7 @@ Future<void> showLoadingDialog(
           context: context,
           useRootNavigator: false,
           builder: (context) => Dialog(
-                backgroundColor: Colors.white.withOpacity(0.9),
+                backgroundColor: Colors.transparent.withOpacity(0.9),
                 elevation: 0,
                 child: [
                   const CircularProgressIndicator(),
@@ -43,7 +43,7 @@ Future<void> showLoadingDialog(
       await showDialog(
           context: context,
           builder: (context) => Dialog(
-                backgroundColor: Colors.white.withOpacity(0.9),
+                backgroundColor: Colors.transparent.withOpacity(0.9),
                 elevation: 0,
                 child: [
                   const CircularProgressIndicator(),

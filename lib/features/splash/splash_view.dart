@@ -46,10 +46,14 @@ class _SplasViewState extends ConsumerState<SplashView> {
     return Scaffold(
       body: Lottie.asset(
         'assets/animations/splash.json',
-        fit: BoxFit.fill,
-        height: context.screenHeight,
+        fit: BoxFit.fitHeight,
+        repeat: false,
+        filterQuality: FilterQuality.low,
+        frameRate: FrameRate.max,
+        addRepaintBoundary: true,
+        options: LottieOptions(enableMergePaths: true),
         alignment: Alignment.center,
-      ),
+      ).box.height(context.screenHeight).makeCentered(),
     );
   }
 }
