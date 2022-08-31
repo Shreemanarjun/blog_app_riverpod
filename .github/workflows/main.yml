@@ -113,10 +113,10 @@ jobs:
               display_name: Blog App
               publisher_display_name: Shreeman Arjun
               identity_name: com.arjun.blog
-              msix_version: ${{steps.msixver.outputs.value }}.0
+              msix_version: 1.0.0.0
               logo_path: assets/ic_launcher/ic_launcher.png
               architecture: x64
-              capabilities: "internetClient,removableStorage"
+              capabilities: "internetClient"
               store: false
           write-mode: append
 
