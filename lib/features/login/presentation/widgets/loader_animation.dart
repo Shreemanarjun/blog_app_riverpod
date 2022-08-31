@@ -14,6 +14,10 @@ class LoaderAnimation extends StatelessWidget {
       height: context.screenHeight * 0.5,
       width: context.screenWidth * 0.5,
       alignment: Alignment.center,
-    ).p8().box.color(Colors.white).make();
+      filterQuality: FilterQuality.low,
+      frameRate: FrameRate.max,
+      addRepaintBoundary: true,
+      options: LottieOptions(enableMergePaths: true),
+    ).p8().box.color(Colors.transparent).make();
   }
 }

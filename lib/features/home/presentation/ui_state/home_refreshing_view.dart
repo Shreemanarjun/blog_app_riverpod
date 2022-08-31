@@ -20,7 +20,7 @@ class HomeRefreshingView extends StatelessWidget {
                 value: value / 100,
                 minHeight: 8,
                 valueColor: const AlwaysStoppedAnimation(Vx.green400),
-                backgroundColor: Colors.white,
+                backgroundColor: Colors.transparent,
               );
             }),
         Flexible(

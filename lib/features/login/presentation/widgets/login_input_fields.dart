@@ -24,7 +24,10 @@ class _LoginInputFieldsState extends State<LoginInputFields> {
       20.heightBox,
       Lottie.asset(
         'assets/animations/login.json',
-
+        filterQuality: FilterQuality.low,
+        frameRate: FrameRate.max,
+        addRepaintBoundary: true,
+        options: LottieOptions(enableMergePaths: true),
         alignment: Alignment.center,
       ).box.height(context.screenHeight * 0.25).make(),
       (context.screenHeight * 0.05).heightBox,

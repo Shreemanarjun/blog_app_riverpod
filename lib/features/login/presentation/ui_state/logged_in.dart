@@ -15,9 +15,13 @@ class LoggedInView extends StatelessWidget {
           fit: BoxFit.scaleDown,
           height: context.screenHeight * 0.5,
           width: context.screenWidth * 0.5,
+          filterQuality: FilterQuality.low,
+          frameRate: FrameRate.max,
+          addRepaintBoundary: true,
+          options: LottieOptions(enableMergePaths: true),
 
           alignment: Alignment.center,
-        ).p8().box.color(Colors.white).make(),
+        ).p8().box.color(Colors.transparent).make(),
       ),
       [
         "Successfully Logged In as $username".text.xl2.make(),

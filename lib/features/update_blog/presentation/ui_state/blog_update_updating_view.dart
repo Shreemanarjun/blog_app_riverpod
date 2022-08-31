@@ -13,15 +13,18 @@ class BlogUpdateUpdatingView extends StatelessWidget {
           flex: 2,
           child: Lottie.asset(
             "assets/animations/update.json",
-            fit: BoxFit.scaleDown,
             height: context.screenHeight * 0.8,
             width: context.screenWidth * 0.5,
             alignment: Alignment.center,
+            filterQuality: FilterQuality.low,
+            frameRate: FrameRate.max,
+            addRepaintBoundary: true,
+            options: LottieOptions(enableMergePaths: true),
           ).centered(),
         ),
         "Updating...".text.green600.lg.makeCentered(),
         const Spacer(),
       ],
-    ).p8().box.height(context.screenHeight * 0.5).make().scrollVertical();
+    ).p8().box.height(context.screenHeight * 0.5).color(Colors.white).make().scrollVertical();
   }
 }
