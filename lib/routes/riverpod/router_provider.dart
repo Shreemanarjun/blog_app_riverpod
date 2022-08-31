@@ -3,7 +3,6 @@ import 'package:blog_app_riverpod/features/add_blog/presentation/add_blog_view.d
 import 'package:blog_app_riverpod/features/login/presentation/login_view.dart';
 import 'package:blog_app_riverpod/shared/riverpod/auth_provider.dart';
 import 'package:blog_app_riverpod/features/signup/presentation/signup_view.dart';
-import 'package:blog_app_riverpod/features/splash/splash_view.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:let_log/let_log.dart';
@@ -13,12 +12,8 @@ final routerProvider = Provider.autoDispose<GoRouter>((ref) {
   final isloggedIn =
       ref.watch(authProvider.select((value) => value.isLoggedIn));
   final GoRouter router = GoRouter(
-    initialLocation: isloggedIn ? "/home" : "/splash",
+    initialLocation: isloggedIn ? "/home" : "/login",
     routes: <GoRoute>[
-      GoRoute(
-        path: "/splash",
-        builder: (context, state) => const SplashView(),
-      ),
       GoRoute(
         path: "/login",
         builder: (context, state) => const LoginView(),
@@ -44,7 +39,7 @@ final routerProvider = Provider.autoDispose<GoRouter>((ref) {
       Logger.log("user loggedin :$userloggedin");
       Logger.log(
           'state location ${state.location} sublocation ${state.subloc}');
-      if (state.location == "/splash" && !userloggedin) {
+      if (state.location == "/login" && !userloggedin) {
         return null;
       } else if (state.location == "/signup" && !userloggedin) {
         return null;
