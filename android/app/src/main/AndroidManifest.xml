@@ -2,7 +2,7 @@
     package="com.example.blog_app_riverpod">
       <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="blog_app_riverpod"
+        android:label="Blog App by Riverpod 💙"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

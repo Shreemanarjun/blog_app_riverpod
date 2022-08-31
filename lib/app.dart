@@ -43,7 +43,7 @@ class _MyAppState extends ConsumerState<MyApp> {
     final router = ref.watch(routerProvider);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
-      title: 'Blog App',
+      title: 'Blog App by Riverpod 💙',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
