@@ -60,9 +60,12 @@ dependencies:
   velocity_x: ^3.5.1
 
 dev_dependencies:
+  build_runner: ^2.2.0
+  build_version: ^2.1.1
   flutter_lints: ^2.0.0
   flutter_test:
     sdk: flutter
+  msix: ^3.6.3
 
 flutter_icons:
   image_path: "assets/ic_launcher/ic_launcher.png"
