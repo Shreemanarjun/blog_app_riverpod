@@ -21,7 +21,7 @@ class AddBlogView extends ConsumerWidget {
         Future.delayed(
           const Duration(seconds: 1),
           () {
-            context.pop();
+            Navigator.of(context).maybePop();
           },
         );
       } else if (next is BlogUnauthorizedError) {
