@@ -15,7 +15,7 @@ class LoginView extends StatelessWidget {
 
   void loginListener(LoginState? previous, LoginState next, WidgetRef ref,
       BuildContext context) {
-    final authprovider = ref.watch(authProvider);
+    final authprovider = ref.watch(authProvider.notifier);
     if (next is LoggedIn) {
       Future.delayed(const Duration(seconds: 2), () => authprovider.login());
     } else if (previous is LoginInvalidCredentials && next is LoginInitial) {
@@ -36,6 +36,16 @@ class LoginView extends StatelessWidget {
     }
   }
 
+
+
+/// GETx
+/// A depneds upon B
+/// B dependes upon A
+/// We cannot guarentee run time
+/// 
+/// riverpod
+/// compiles -> ready to go
+/// 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
