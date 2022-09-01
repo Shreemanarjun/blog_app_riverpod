@@ -22,5 +22,5 @@ void showUnauthorizedDialog(BuildContext context, WidgetRef ref) {
 
 void onLogout(WidgetRef ref) async {
   await ref.read(dbServiceProvider).removeLoginModel();
-  ref.read(authProvider).logout();
+  ref.read(authProvider.notifier).logout();
 }
