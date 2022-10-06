@@ -34,7 +34,7 @@ final routerProvider = Provider.autoDispose<GoRouter>((ref) {
     ],
     debugLogDiagnostics: true,
     refreshListenable: authnotifier,
-    redirect: (state) {
+    redirect: (context, state) async {
       final userloggedin = isloggedIn;
       Logger.log("user loggedin :$userloggedin");
       Logger.log(
