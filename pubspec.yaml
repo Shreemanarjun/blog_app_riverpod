@@ -62,7 +62,10 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   hive_test: ^1.0.1
+  integration_test:
+    sdk: flutter
   mockito: ^5.3.2
+  patrol: ^0.6.11
   test: ^1.21.4
 
 
