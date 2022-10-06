@@ -10,11 +10,11 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final myloginProvider = Provider.autoDispose<ILoginProvider>((ref) =>
     LoginProvider(
-        dbService: ref.read(dbServiceProvider), dio: ref.read(dioProvider)));
+        dbService: ref.watch(dbServiceProvider), dio: ref.watch(dioProvider)));
 
 final myloginRepository = Provider.autoDispose(
   (ref) {
-    final loginprovider = ref.read(myloginProvider);
+    final loginprovider = ref.watch(myloginProvider);
     return LoginRepository(loginProvider: loginprovider);
   },
 );
@@ -22,7 +22,7 @@ final myloginRepository = Provider.autoDispose(
 final myloginNotifierProvider =
     StateNotifierProvider.autoDispose<LoginStateNotifier, LoginState>(
   (ref) {
-    final dbservice = ref.read(dbServiceProvider);
-    return LoginStateNotifier(ref.read(myloginRepository), dbservice);
+    final dbservice = ref.watch(dbServiceProvider);
+    return LoginStateNotifier(ref.watch(myloginRepository), dbservice);
   },
 );

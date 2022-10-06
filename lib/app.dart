@@ -1,5 +1,5 @@
 import 'package:blog_app_riverpod/data/models/login_model.dart';
-import 'package:blog_app_riverpod/data/service/db/db_service.dart';
+import 'package:blog_app_riverpod/data/service/db/i_db_service.dart';
 import 'package:blog_app_riverpod/shared/helper/hide_keyboard.dart';
 import 'package:blog_app_riverpod/shared/riverpod/auth_provider.dart';
 import 'package:blog_app_riverpod/shared/riverpod/db_service_provider.dart';
@@ -23,7 +23,7 @@ class MyApp extends ConsumerStatefulWidget {
 
 class _MyAppState extends ConsumerState<MyApp> {
   Future<void> checkLoggedin(
-      DbService dbService, AuthNotifier authNotifier) async {
+      IDbService dbService, AuthNotifier authNotifier) async {
     final LoginModel? loginModel = await dbService.readLoginModel();
     if (loginModel != null) {
       authNotifier.login();
@@ -57,10 +57,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
         ],
       ),
-      
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+      routerConfig: router,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

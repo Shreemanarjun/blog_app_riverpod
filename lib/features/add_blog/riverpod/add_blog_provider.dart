@@ -5,4 +5,4 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final addBlogProvider =
     StateNotifierProvider.autoDispose<BlogAddNotifier, AddBlogState>(
-        ((ref) => BlogAddNotifier(ref.read(blogrepository))));
+        ((ref) => BlogAddNotifier(ref.watch(blogrepository))));

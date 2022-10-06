@@ -22,12 +22,11 @@ class HomeLoadedView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final homenotifier = ref.watch(homeprovider.notifier);
     return blogmodel.blogs.isNotEmpty
         ? [
             Flexible(
               child: RefreshIndicator(
-                onRefresh: () => homenotifier.refreshBlogs(),
+                onRefresh: () => ref.read(homeprovider.notifier).refreshBlogs(),
                 child: ListView.builder(
                   itemBuilder: (context, index) {
                     final blog = blogmodel.blogs[index];
@@ -45,8 +44,9 @@ class HomeLoadedView extends ConsumerWidget {
                               color: Vx.green600,
                             )),
                         IconButton(
-                            onPressed: () =>
-                                homenotifier.deleteBlog(id: blog.id.toString()),
+                            onPressed: () => ref
+                                .read(homeprovider.notifier)
+                                .deleteBlog(id: blog.id.toString()),
                             icon: const Icon(
                               Icons.delete_forever_outlined,
                               color: Vx.red500,
@@ -62,7 +62,7 @@ class HomeLoadedView extends ConsumerWidget {
         : [
             Flexible(
               child: TextButton.icon(
-                onPressed: () => homenotifier.refreshBlogs(),
+                onPressed: () => ref.read(homeprovider.notifier).refreshBlogs(),
                 icon: const Icon(
                   Icons.refresh_outlined,
                   color: Vx.white,

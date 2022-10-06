@@ -14,20 +14,20 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final myblogProvider = Provider.autoDispose<IBlogApiProvider>(
   (ref) => BlogApiProvider(
-    dbService: ref.read(dbServiceProvider),
-    dio: ref.read(dioProvider),
+    dbService: ref.watch(dbServiceProvider),
+    dio: ref.watch(dioProvider),
   ),
 );
 
 final blogrepository = Provider.autoDispose<IBlogRepository>(
   (ref) => BlogRepository(
-    blogApiProvider: ref.read(myblogProvider),
+    blogApiProvider: ref.watch(myblogProvider),
   ),
 );
 
 final homeprovider =
     StateNotifierProvider.autoDispose<HomeStateNotifier, HomeState>(((ref) {
-  final dbservice = ref.read(dbServiceProvider);
+  final dbservice = ref.watch(dbServiceProvider);
   ref.listen<AddBlogState>(addBlogProvider, (previous, next) {
     if (next is BlogAdded) {
       Future.delayed(const Duration(seconds: 2), () {
@@ -46,5 +46,5 @@ final homeprovider =
     },
   );
 
-  return HomeStateNotifier(ref.read(blogrepository), dbservice)..getAllBlogs();
+  return HomeStateNotifier(ref.watch(blogrepository), dbservice)..getAllBlogs();
 }));

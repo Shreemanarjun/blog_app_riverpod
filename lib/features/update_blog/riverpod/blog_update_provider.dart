@@ -5,4 +5,4 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final updateBlogProvider =
     StateNotifierProvider.autoDispose<BlogUpdateNotifier, UpdateBlogState>(
-        (ref) => BlogUpdateNotifier(blogRepository: ref.read(blogrepository)));
+        (ref) => BlogUpdateNotifier(blogRepository: ref.watch(blogrepository)));

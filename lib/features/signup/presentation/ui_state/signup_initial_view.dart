@@ -26,9 +26,8 @@ class SignupInitialView extends StatelessWidget {
         ).p8().box.color(Colors.transparent).make(),
       ),
       Consumer(builder: (context, ref, child) {
-        final signupnotifier = ref.read(mysignupNotifierProvider.notifier);
         return FormBuilder(
-          key: signupnotifier.formKey,
+          key: ref.read(mysignupNotifierProvider.notifier).formKey,
           autoFocusOnValidationFailure: true,
           autovalidateMode: AutovalidateMode.onUserInteraction,
           child: const SignupInputFields(),

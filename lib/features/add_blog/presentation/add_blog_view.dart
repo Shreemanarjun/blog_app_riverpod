@@ -12,7 +12,6 @@ class AddBlogView extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    final addblognotifier = ref.watch(addBlogProvider.notifier);
     final addblogstate = ref.watch(addBlogProvider);
 
     ref.listen<AddBlogState>(addBlogProvider, (previous, next) async {
@@ -35,14 +34,16 @@ class AddBlogView extends ConsumerWidget {
           title: "Add a new blog".text.lg.semiBold.make(),
         ),
         body: addblogstate.map(
-          blogInitial: (s) => BlogIntitalView(formkey: addblognotifier.formKey),
+          blogInitial: (s) => BlogIntitalView(
+              formkey: ref.read(addBlogProvider.notifier).formKey),
           blogAdding: (p0) => const BlogAddingView(isAdded: false),
           blogAdded: (p0) => const BlogAddingView(isAdded: true),
-          blogAddError: (p0) =>
-              BlogIntitalView(formkey: addblognotifier.formKey),
-          blogError: (p0) => BlogIntitalView(formkey: addblognotifier.formKey),
-          blogUnauthorizedError: (p0) =>
-              BlogIntitalView(formkey: addblognotifier.formKey),
+          blogAddError: (p0) => BlogIntitalView(
+              formkey: ref.read(addBlogProvider.notifier).formKey),
+          blogError: (p0) => BlogIntitalView(
+              formkey: ref.read(addBlogProvider.notifier).formKey),
+          blogUnauthorizedError: (p0) => BlogIntitalView(
+              formkey: ref.read(addBlogProvider.notifier).formKey),
         ));
   }
 }

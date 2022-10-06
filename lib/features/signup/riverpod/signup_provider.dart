@@ -6,5 +6,5 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final mysignupNotifierProvider =
     StateNotifierProvider.autoDispose<SignupStateNotifier, SignupState>(
-  (ref) => SignupStateNotifier(loginRepository: ref.read(myloginRepository)),
+  (ref) => SignupStateNotifier(loginRepository: ref.watch(myloginRepository)),
 );

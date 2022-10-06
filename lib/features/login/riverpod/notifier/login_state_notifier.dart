@@ -1,5 +1,5 @@
 import 'package:blog_app_riverpod/data/repositories/login/i_login_repository.dart';
-import 'package:blog_app_riverpod/data/service/db/db_service.dart';
+import 'package:blog_app_riverpod/data/service/db/i_db_service.dart';
 import 'package:blog_app_riverpod/features/login/state/login_states.dart';
 import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
 import 'package:blog_app_riverpod/shared/exceptions/no_internet_exception.dart';
@@ -11,7 +11,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class LoginStateNotifier extends StateNotifier<LoginState> {
   final ILoginRepository loginRepository;
-  final DbService dbService;
+  final IDbService dbService;
   LoginStateNotifier(this.loginRepository, this.dbService)
       : super(const LoginInitial());
 
