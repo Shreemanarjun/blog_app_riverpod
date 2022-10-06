@@ -8,7 +8,6 @@ import 'package:go_router/go_router.dart';
 import 'package:let_log/let_log.dart';
 
 final routerProvider = Provider.autoDispose<GoRouter>((ref) {
-  final authnotifier = ref.watch(authProvider.notifier);
   final isloggedIn =
       ref.watch(authProvider.select((value) => value.isLoggedIn));
   final GoRouter router = GoRouter(
@@ -33,7 +32,7 @@ final routerProvider = Provider.autoDispose<GoRouter>((ref) {
           ]),
     ],
     debugLogDiagnostics: true,
-    refreshListenable: authnotifier,
+    refreshListenable: ref.read(authProvider.notifier),
     redirect: (context, state) async {
       final userloggedin = isloggedIn;
       Logger.log("user loggedin :$userloggedin");

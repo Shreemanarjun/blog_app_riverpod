@@ -49,11 +49,12 @@ class BlogUpdateInitialView extends StatelessWidget {
         30.heightBox,
         Consumer(
           builder: (context, ref, child) {
-            final addblognotifier = ref.read(updateBlogProvider.notifier);
             return ElevatedButton(
               onPressed: () async {
                 hideKeyboard(context: context);
-                addblognotifier.updateBlog(id: blogModel.id.toString());
+                ref
+                    .read(updateBlogProvider.notifier)
+                    .updateBlog(id: blogModel.id.toString());
               },
               child: "Update".text.isIntrinsic.make(),
             );

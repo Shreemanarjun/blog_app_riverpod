@@ -29,7 +29,7 @@ class UpdateBlogView extends ConsumerWidget {
       }
     });
     final UpdateBlogState updatestate = ref.watch(updateBlogProvider);
-    final updateblognotifier = ref.watch(updateBlogProvider.notifier);
+
     return Scaffold(
         extendBody: true,
         resizeToAvoidBottomInset: true,
@@ -38,15 +38,19 @@ class UpdateBlogView extends ConsumerWidget {
         ),
         body: updatestate.map(
           blogUpdateInitial: (p0) => BlogUpdateInitialView(
-              blogModel: blogModel, formkey: updateblognotifier.formKey),
+              blogModel: blogModel,
+              formkey: ref.read(updateBlogProvider.notifier).formKey),
           blogUpdating: (p0) => const BlogUpdateUpdatingView(),
           blogUpdated: (p0) => const BlogUpdateUpdatedView(),
           blogUpdateError: (p0) => BlogUpdateInitialView(
-              blogModel: blogModel, formkey: updateblognotifier.formKey),
+              blogModel: blogModel,
+              formkey: ref.read(updateBlogProvider.notifier).formKey),
           unAuthorizedError: (p0) => BlogUpdateInitialView(
-              blogModel: blogModel, formkey: updateblognotifier.formKey),
+              blogModel: blogModel,
+              formkey: ref.read(updateBlogProvider.notifier).formKey),
           blogGError: (p0) => BlogUpdateInitialView(
-              blogModel: blogModel, formkey: updateblognotifier.formKey),
+              blogModel: blogModel,
+              formkey: ref.read(updateBlogProvider.notifier).formKey),
         ));
   }
 }
