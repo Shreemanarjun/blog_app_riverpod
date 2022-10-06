@@ -57,10 +57,7 @@ class _MyAppState extends ConsumerState<MyApp> {
           ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
         ],
       ),
-      
-      routeInformationProvider: router.routeInformationProvider,
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
+      routerConfig: router,
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
