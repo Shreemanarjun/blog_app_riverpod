@@ -646,7 +646,7 @@ packages:
       name: patrol
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.6.11"
+    version: "0.6.12"
   petitparser:
     dependency: transitive
     description:
