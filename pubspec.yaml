@@ -65,7 +65,7 @@ dev_dependencies:
   integration_test:
     sdk: flutter
   mockito: ^5.3.2
-  patrol: ^0.6.11
+  patrol: ^0.7.1
   test: ^1.21.4
 
 
