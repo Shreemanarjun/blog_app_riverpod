@@ -54,7 +54,7 @@ dependencies:
   ndialog: ^4.2.0
   platform_info: ^3.2.0
   responsive_framework: ^0.2.0
-  velocity_x: ^3.5.1
+  velocity_x: ^3.6.0
 
 dev_dependencies:
   flutter_launcher_icons: ^0.10.0
