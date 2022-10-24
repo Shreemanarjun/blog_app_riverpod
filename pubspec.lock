@@ -861,7 +861,7 @@ packages:
       name: velocity_x
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "3.5.1"
+    version: "3.6.0"
   vm_service:
     dependency: transitive
     description:
@@ -875,7 +875,7 @@ packages:
       name: vxstate
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "2.2.0"
+    version: "2.3.0"
   watcher:
     dependency: transitive
     description:
