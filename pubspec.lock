@@ -49,7 +49,7 @@ packages:
       name: awesome_snackbar_content
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.0.8"
+    version: "0.1.0"
   boolean_selector:
     dependency: transitive
     description:
