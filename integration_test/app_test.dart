@@ -14,31 +14,19 @@ import 'config.dart';
 
 void main() {
   patrolTest(
-    'Test Login',
+    'login screen test',
     config: patrolConfig,
-    nativeAutomation: true,
+    nativeAutomation: false,
     ($) async {
       await Hive.initFlutter();
+      // Replace with your own app widget.
       await $.pumpWidgetAndSettle(
         ProviderScope(
           observers: [MyLogger()],
           child: const MyApp(),
         ),
       );
-
-      // await $.native.pressHome();
-
-      // await $.native.pressDoubleRecentApps();
-
-      // await $.native.openNotifications();
-
-      // await $.native.enableWifi();
-      // await $.native.disableWifi();
-      // await $.native.enableWifi();
-
-      // await $.native.pressBack();
-
-      // expect($('app'), findsOneWidget);
+      $.waitUntilExists($('Login'));
     },
   );
 }
