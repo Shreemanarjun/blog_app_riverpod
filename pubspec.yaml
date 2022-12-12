@@ -50,7 +50,7 @@ dependencies:
       url: https://github.com/yungzhu/let_log.git
       ref: master
   lottie: ^2.0.0
-  multiple_result: ^1.0.4
+  multiple_result: ^3.1.0
   ndialog: ^4.2.0
   platform_info: ^3.2.0
   responsive_framework: ^0.2.0
