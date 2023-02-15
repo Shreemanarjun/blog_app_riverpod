@@ -1,5 +1,3 @@
-// ignore_for_file: non_constant_identifier_names
-
 import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
@@ -51,45 +49,51 @@ class BlogsModel {
 
 class BlogModel {
   final int id;
-  final int user_id;
-  final String body;
   final String title;
+  final String createdAt;
+  final String updatedAt;
+  final int userID;
   BlogModel({
     required this.id,
-    required this.user_id,
-    required this.body,
     required this.title,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.userID,
   });
 
   BlogModel copyWith({
     int? id,
-    int? user_id,
-    String? body,
     String? title,
+    String? createdAt,
+    String? updatedAt,
+    int? userID,
   }) {
     return BlogModel(
       id: id ?? this.id,
-      user_id: user_id ?? this.user_id,
-      body: body ?? this.body,
       title: title ?? this.title,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      userID: userID ?? this.userID,
     );
   }
 
   Map<String, dynamic> toMap() {
     return {
       'id': id,
-      'user_id': user_id,
-      'body': body,
       'title': title,
+      'createdAt': createdAt,
+      'updatedAt': updatedAt,
+      'userID': userID,
     };
   }
 
   factory BlogModel.fromMap(Map<String, dynamic> map) {
     return BlogModel(
       id: map['id']?.toInt() ?? 0,
-      user_id: map['user_id']?.toInt() ?? 0,
-      body: map['body'] ?? '',
       title: map['title'] ?? '',
+      createdAt: map['createdAt'] ?? '',
+      updatedAt: map['updatedAt'] ?? '',
+      userID: map['userID']?.toInt() ?? 0,
     );
   }
 
@@ -99,7 +103,7 @@ class BlogModel {
 
   @override
   String toString() {
-    return 'Blog(id: $id, user_id: $user_id, body: $body, title: $title)';
+    return 'Blog(id: $id, title: $title, createdAt: $createdAt, updatedAt: $updatedAt, userID: $userID)';
   }
 
   @override
@@ -108,16 +112,18 @@ class BlogModel {
   
     return other is BlogModel &&
       other.id == id &&
-      other.user_id == user_id &&
-      other.body == body &&
-      other.title == title;
+      other.title == title &&
+      other.createdAt == createdAt &&
+      other.updatedAt == updatedAt &&
+      other.userID == userID;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
-      user_id.hashCode ^
-      body.hashCode ^
-      title.hashCode;
+      title.hashCode ^
+      createdAt.hashCode ^
+      updatedAt.hashCode ^
+      userID.hashCode;
   }
 }

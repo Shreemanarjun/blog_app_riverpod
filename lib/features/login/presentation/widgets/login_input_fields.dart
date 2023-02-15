@@ -1,9 +1,11 @@
-import 'package:blog_app_riverpod/features/login/riverpod/login_providers.dart';
+import 'package:blog_app_riverpod/features/login/controller/login_providers.dart';
+import 'package:blog_app_riverpod/routes/router.gr.dart';
+import 'package:blog_app_riverpod/routes/router_pod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:lottie/lottie.dart';
 
 import 'package:velocity_x/velocity_x.dart';
@@ -35,10 +37,10 @@ class _LoginInputFieldsState extends State<LoginInputFields> {
       20.heightBox,
       FormBuilderTextField(
         name: 'username',
-        initialValue: 'ss@ss.in',
+        initialValue: 'Arjun',
         decoration: const InputDecoration(
-            hintText: "Enter Email",
-            labelText: "Email",
+            hintText: "Enter Username",
+            labelText: "Username",
             border: UnderlineInputBorder(),
             prefixIcon: Icon(
               Icons.alternate_email_outlined,
@@ -46,13 +48,12 @@ class _LoginInputFieldsState extends State<LoginInputFields> {
             )),
         validator: FormBuilderValidators.compose([
           FormBuilderValidators.required(),
-          FormBuilderValidators.email(),
         ]),
       ).centered(),
       20.heightBox,
       FormBuilderTextField(
         name: 'password',
-        initialValue: 'ss',
+        initialValue: 'password',
         decoration: const InputDecoration(
           hintText: "Enter Password",
           labelText: "Password",
@@ -83,17 +84,21 @@ class _LoginInputFieldsState extends State<LoginInputFields> {
         },
       ),
       30.heightBox,
-      ElevatedButton(
-        style: ElevatedButton.styleFrom(
-            elevation: 10,
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(
-              20,
-            ))),
-        onPressed: () {
-          GoRouter.of(context).push("/signup");
+      Consumer(
+        builder: (context, ref, child) {
+          return ElevatedButton(
+            style: ElevatedButton.styleFrom(
+                elevation: 10,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(
+                  20,
+                ))),
+            onPressed: () {
+              ref.read(autorouterProvider).navigate(const SignupRouter());
+            },
+            child: "New here ? Sign up".text.make(),
+          );
         },
-        child: "New here ? Sign up".text.make(),
       ),
     ]
         .vStack(

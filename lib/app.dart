@@ -1,11 +1,8 @@
-import 'package:blog_app_riverpod/data/models/login_model.dart';
-import 'package:blog_app_riverpod/data/service/db/i_db_service.dart';
-import 'package:blog_app_riverpod/shared/helper/hide_keyboard.dart';
-import 'package:blog_app_riverpod/shared/riverpod/auth_provider.dart';
-import 'package:blog_app_riverpod/shared/riverpod/db_service_provider.dart';
-import 'package:blog_app_riverpod/features/login/riverpod/notifier/auth_notifier.dart';
+import 'package:auto_route/auto_route.dart';
 
-import 'package:blog_app_riverpod/routes/riverpod/router_provider.dart';
+import 'package:blog_app_riverpod/routes/router_pod.dart';
+import 'package:blog_app_riverpod/shared/helper/hide_keyboard.dart';
+
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -22,30 +19,19 @@ class MyApp extends ConsumerStatefulWidget {
 }
 
 class _MyAppState extends ConsumerState<MyApp> {
-  Future<void> checkLoggedin(
-      IDbService dbService, AuthNotifier authNotifier) async {
-    final LoginModel? loginModel = await dbService.readLoginModel();
-    if (loginModel != null) {
-      authNotifier.login();
-    }
-  }
-
-  @override
-  void initState() {
-    final dbservice = ref.read(dbServiceProvider);
-    final authprovider = ref.read(authProvider);
-    checkLoggedin(dbservice, authprovider);
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
-    final router = ref.watch(routerProvider);
+    final approuter = ref.watch(autorouterProvider);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Blog App by Riverpod 💙',
       theme: ThemeData(
         primarySwatch: Colors.blue,
+        pageTransitionsTheme: const PageTransitionsTheme(builders: {
+          // replace default CupertinoPageTransitionsBuilder with this
+          TargetPlatform.iOS: NoShadowCupertinoPageTransitionsBuilder(),
+          TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
+        }),
       ),
       builder: (context, widget) => ResponsiveWrapper.builder(
         ClampingScrollWrapper.builder(
@@ -57,7 +43,8 @@ class _MyAppState extends ConsumerState<MyApp> {
           ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
         ],
       ),
-      routerConfig: router,
+      routeInformationParser: approuter.defaultRouteParser(),
+      routerDelegate: approuter.delegate(),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

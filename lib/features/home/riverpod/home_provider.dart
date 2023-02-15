@@ -9,7 +9,7 @@ import 'package:blog_app_riverpod/features/home/state/home_states.dart';
 import 'package:blog_app_riverpod/features/update_blog/riverpod/blog_update_provider.dart';
 import 'package:blog_app_riverpod/features/update_blog/state/blog_update_state.dart';
 import 'package:blog_app_riverpod/shared/riverpod/db_service_provider.dart';
-import 'package:blog_app_riverpod/shared/riverpod/dio_provider.dart';
+import 'package:blog_app_riverpod/shared/dio_client/dio_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 final myblogProvider = Provider.autoDispose<IBlogApiProvider>(

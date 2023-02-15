@@ -36,16 +36,6 @@ class BlogUpdateInitialView extends StatelessWidget {
               FormBuilderValidators.compose([FormBuilderValidators.required()]),
         ),
         20.heightBox,
-        FormBuilderTextField(
-          name: 'body',
-          initialValue: blogModel.body,
-          maxLines: 5,
-          decoration: const InputDecoration(
-              labelText: "Body",
-              hintText: 'Enter Body',
-              floatingLabelBehavior: FloatingLabelBehavior.always,
-              border: OutlineInputBorder()),
-        ),
         30.heightBox,
         Consumer(
           builder: (context, ref, child) {

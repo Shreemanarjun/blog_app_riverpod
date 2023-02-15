@@ -6,7 +6,8 @@ Future<void> showLoadingDialog(
     {required BuildContext context, required String title}) async {
   await hideDialog(context: context);
   Logger.log("dialog showing");
-  await showDialog(
+  if (context.mounted) {
+     await showDialog(
       context: context,
       builder: (context) => Dialog(
             backgroundColor: Colors.white.withOpacity(0.9),
@@ -17,6 +18,8 @@ Future<void> showLoadingDialog(
               title.text.make(),
             ].vStack().p12(),
           ));
+  }
+
 }
 
 Future<void> hideDialog({required BuildContext context}) async {

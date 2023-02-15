@@ -18,9 +18,8 @@ class BlogAddNotifier extends StateNotifier<AddBlogState> {
       if (formKey.currentState!.validate()) {
         state = const BlogAdding();
         final title = formKey.currentState!.fields['title']!.value.toString();
-        final body = formKey.currentState!.fields['body']!.value ?? "";
         final result =
-            await blogRepository.createBlog(title: title, body: body);
+            await blogRepository.createBlog(title: title,);
 
         result.when((error) {
           if (error is UnauthorizedException) {

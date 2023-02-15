@@ -20,7 +20,9 @@ class AddBlogView extends ConsumerWidget {
         Future.delayed(
           const Duration(seconds: 1),
           () {
-            Navigator.of(context).maybePop();
+            if (context.mounted) {
+              Navigator.of(context).maybePop();
+            }
           },
         );
       } else if (next is BlogUnauthorizedError) {
@@ -33,17 +35,19 @@ class AddBlogView extends ConsumerWidget {
         appBar: AppBar(
           title: "Add a new blog".text.lg.semiBold.make(),
         ),
-        body: addblogstate.map(
-          blogInitial: (s) => BlogIntitalView(
-              formkey: ref.read(addBlogProvider.notifier).formKey),
-          blogAdding: (p0) => const BlogAddingView(isAdded: false),
-          blogAdded: (p0) => const BlogAddingView(isAdded: true),
-          blogAddError: (p0) => BlogIntitalView(
-              formkey: ref.read(addBlogProvider.notifier).formKey),
-          blogError: (p0) => BlogIntitalView(
-              formkey: ref.read(addBlogProvider.notifier).formKey),
-          blogUnauthorizedError: (p0) => BlogIntitalView(
-              formkey: ref.read(addBlogProvider.notifier).formKey),
-        ));
+        body: addblogstate
+            .map(
+              blogInitial: (s) => BlogIntitalView(
+                  formkey: ref.read(addBlogProvider.notifier).formKey),
+              blogAdding: (p0) => const BlogAddingView(isAdded: false),
+              blogAdded: (p0) => const BlogAddingView(isAdded: true),
+              blogAddError: (p0) => BlogIntitalView(
+                  formkey: ref.read(addBlogProvider.notifier).formKey),
+              blogError: (p0) => BlogIntitalView(
+                  formkey: ref.read(addBlogProvider.notifier).formKey),
+              blogUnauthorizedError: (p0) => BlogIntitalView(
+                  formkey: ref.read(addBlogProvider.notifier).formKey),
+            )
+            .safeArea());
   }
 }

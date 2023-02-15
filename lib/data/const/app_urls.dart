@@ -3,19 +3,19 @@ class AppURLs {
 
   static String get baseUrl => testUrl;
 
-  static const testUrl = 'https://app-demo-banty.herokuapp.com/';
+  static const testUrl = 'https://web-production-147b.up.railway.app/';
 
-  static const loginUrl = 'loginJWT';
+  static const loginUrl = 'login';
 
-  static const signupUrl = 'user/create';
+  static const signupUrl = 'signup';
 
-  static const createBlogURl = 'blog/';
+  static const createBlogURl = 'blog';
 
-  static const getAllBlogUrl = 'blog/allBlogs';
+  static const getAllBlogUrl = 'blog';
 
   static const getABlog = 'blog/';
 
-  static const updateABlog = 'blog/updateBlogs/';
+  static const updateABlog = 'blog';
 
-  static const deleteABlog = 'blog/delete/';
+  static const deleteABlog = 'blog/';
 }

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:blog_app_riverpod/data/repositories/blog/i_blog_repository.dart';
 import 'package:blog_app_riverpod/features/update_blog/state/blog_update_state.dart';
+import 'package:let_log/let_log.dart';
 
 class BlogUpdateNotifier extends StateNotifier<UpdateBlogState> {
   final IBlogRepository blogRepository;
@@ -19,9 +20,9 @@ class BlogUpdateNotifier extends StateNotifier<UpdateBlogState> {
       if (formKey.currentState!.validate()) {
         state = const BlogUpdating();
         final title = formKey.currentState!.fields['title']!.value.toString();
-        final body = formKey.currentState!.fields['body']!.value ?? "";
-        final result = await blogRepository.updateBlogByID(
-            title: title, body: body, id: id);
+        Logger.debug(title);
+        final result =
+            await blogRepository.updateBlogByID(title: title, id: id);
 
         result.when((error) {
           if (error is UnauthorizedException) {

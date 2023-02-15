@@ -1,9 +1,10 @@
+
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:let_log/let_log.dart';
 
-void handleBlogAPIError(
+void defaultAPIErrorHandler(
     DioError err, ErrorInterceptorHandler handler, Dio dio) async {
   Logger.log(err.type);
   switch (err.type) {

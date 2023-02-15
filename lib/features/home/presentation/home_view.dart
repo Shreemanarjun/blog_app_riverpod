@@ -21,18 +21,23 @@ class HomeView extends ConsumerWidget {
       showUnauthorizedDialog(context, ref);
     } else if (previous is HomeRefreshing && next is HomeLoaded) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: "Blogs Refreshed 😍 !".text.make()));
+        ..clearSnackBars()
+        ..showSnackBar(SnackBar(content: "Blogs Refreshed 😍 !".text.make()));
     } else if (previous is HomeLoaded && next is HomeRefreshing) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: "Refreshing Blogs 🔃".text.make()));
+        ..clearSnackBars()
+        ..showSnackBar(SnackBar(content: "Refreshing Blogs 🔃".text.make()));
     } else if (previous is HomeRefreshError && next is HomeLoaded) {
-      ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: "Refreshed .No new blogs 😢!".text.make()));
+      ScaffoldMessenger.of(context)
+        ..clearSnackBars()
+        ..showSnackBar(
+            SnackBar(content: "Refreshed .No new blogs 😢!".text.make()));
     } else if (next is HomeBlogDeleting) {
       await showLoadingDialog(context: context, title: 'Deleting a blog');
     } else if (next is HomeBlogDeleted) {
       ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: "Deleted... ❎".text.make()));
+        ..clearSnackBars()
+        ..showSnackBar(SnackBar(content: "Deleted... ❎".text.make()));
     } else if (next is HomeLoaded) {
       await hideDialog(context: context);
     }
@@ -71,18 +76,20 @@ class HomeView extends ConsumerWidget {
         onPressed: () => addABlogPage(context),
         child: const Icon(Icons.add),
       ),
-      body: homeState.map(
-        homeInitial: (s) => const HomeInitialView(),
-        homeLoading: (s) => const HomeLoadingView(),
-        homeLoaded: (s) => HomeLoadedView(blogmodel: s.blogmodel),
-        homeRefreshing: (s) => HomeRefreshingView(blogmodel: s.blogmodel),
-        homeError: (s) =>
-            HomeErrorView(message: s.message, details: s.details ?? ""),
-        homeRefreshError: (s) => HomeLoadedView(blogmodel: s.blogmodel),
-        homeUnauthorized: (s) => const HomeInitialView(),
-        homeBlogDeleted: (s) => HomeLoadedView(blogmodel: s.blogmodel),
-        homeBlogDeleting: (s) => HomeRefreshingView(blogmodel: s.blogmodel),
-      ),
+      body: homeState
+          .map(
+            homeInitial: (s) => const HomeInitialView(),
+            homeLoading: (s) => const HomeLoadingView(),
+            homeLoaded: (s) => HomeLoadedView(blogmodel: s.blogmodel),
+            homeRefreshing: (s) => HomeRefreshingView(blogmodel: s.blogmodel),
+            homeError: (s) =>
+                HomeErrorView(message: s.message, details: s.details ?? ""),
+            homeRefreshError: (s) => HomeLoadedView(blogmodel: s.blogmodel),
+            homeUnauthorized: (s) => const HomeInitialView(),
+            homeBlogDeleted: (s) => HomeLoadedView(blogmodel: s.blogmodel),
+            homeBlogDeleting: (s) => HomeRefreshingView(blogmodel: s.blogmodel),
+          )
+          .safeArea(),
     );
   }
 }

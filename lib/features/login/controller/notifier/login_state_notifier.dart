@@ -1,7 +1,6 @@
 import 'package:blog_app_riverpod/data/repositories/login/i_login_repository.dart';
 import 'package:blog_app_riverpod/data/service/db/i_db_service.dart';
 import 'package:blog_app_riverpod/features/login/state/login_states.dart';
-import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
 import 'package:blog_app_riverpod/shared/exceptions/no_internet_exception.dart';
 
 import 'package:dio/dio.dart';
@@ -27,17 +26,14 @@ class LoginStateNotifier extends StateNotifier<LoginState> {
         final result =
             await loginRepository.login(username: username, password: password);
         result.when((error) {
-          if (error is ValidationException) {
-            state = LoginError(message: error.message, details: "");
-            state = const LoginInitial();
-          } else if (error.message == 'Invalid Credentials') {
+        if (error.message == 'Invalid username or password') {
             state = LoginInvalidCredentials(message: error.message);
             state = const LoginInitial();
           } else {
             state = LoginError(message: error.message, details: "");
           }
-        }, (loginmodel) async {
-          await dbService.saveLoginModel(loginModel: loginmodel);
+        }, (tokenmodel) async {
+          await dbService.saveTokenModel(tokenModel:tokenmodel);
 
           state = LoggedIn(username: username);
         });

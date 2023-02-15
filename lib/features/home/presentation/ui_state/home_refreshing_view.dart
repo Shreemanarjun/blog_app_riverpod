@@ -14,7 +14,7 @@ class HomeRefreshingView extends StatelessWidget {
       children: [
         TweenAnimationBuilder<double>(
             tween: Tween<double>(begin: 0, end: 100),
-            duration: const Duration(seconds: 10),
+            duration: const Duration(seconds: 5),
             builder: (context, value, child) {
               return LinearProgressIndicator(
                 value: value / 100,

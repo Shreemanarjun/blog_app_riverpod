@@ -1,4 +1,4 @@
-import 'package:blog_app_riverpod/features/login/riverpod/login_providers.dart';
+import 'package:blog_app_riverpod/features/login/controller/login_providers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lottie/lottie.dart';

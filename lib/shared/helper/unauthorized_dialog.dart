@@ -1,4 +1,5 @@
-import 'package:blog_app_riverpod/shared/riverpod/auth_provider.dart';
+import 'package:blog_app_riverpod/routes/router.gr.dart';
+import 'package:blog_app_riverpod/routes/router_pod.dart';
 import 'package:blog_app_riverpod/shared/riverpod/db_service_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -21,6 +22,6 @@ void showUnauthorizedDialog(BuildContext context, WidgetRef ref) {
 }
 
 void onLogout(WidgetRef ref) async {
-  await ref.read(dbServiceProvider).removeLoginModel();
-  ref.read(authProvider.notifier).logout();
+  await ref.read(dbServiceProvider).removeTokenModel();
+  ref.read(autorouterProvider).replaceAll([const LoginRouter()]);
 }

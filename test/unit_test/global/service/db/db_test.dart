@@ -1,4 +1,5 @@
-import 'package:blog_app_riverpod/data/models/login_model.dart';
+
+import 'package:blog_app_riverpod/data/models/token_model.dart';
 import 'package:blog_app_riverpod/shared/riverpod/db_service_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -25,7 +26,7 @@ Future<void> main() async {
       container.listen(dbServiceProvider, listener, fireImmediately: true);
       verifyNever(listener(null, Null)).called(0);
       final db = container.read(dbServiceProvider);
-      var testloginmodel = await db.readLoginModel();
+      var testloginmodel = await db.getTokenModel();
       expect(testloginmodel, null);
       verify(listener(null, db)).called(1);
       verifyNoMoreInteractions(listener);
@@ -40,14 +41,14 @@ Future<void> main() async {
       container.listen(dbServiceProvider, listener, fireImmediately: true);
       verifyNever(listener(null, Null)).called(0);
       final db = container.read(dbServiceProvider);
-      await db.saveLoginModel(
-          loginModel: LoginModel(accesstoken: 'token', tokentype: 'auth'));
-      var testloginmodel = await db.readLoginModel();
+      await db.saveTokenModel(
+          tokenModel: TokenModel(accessToken: 'token', refreshToken: 'auth'));
+      var testloginmodel = await db.getTokenModel();
       expect(
           testloginmodel,
-          isA<LoginModel>()
-              .having((s) => s.accesstoken, 'access token', 'token')
-              .having((s) => s.tokentype, 'token type', 'auth'));
+          isA<TokenModel>()
+              .having((s) => s.accessToken, 'access token', 'token')
+              .having((s) => s.refreshToken, 'token type', 'auth'));
       verify(listener(null, db)).called(1);
       verifyNoMoreInteractions(listener);
     });

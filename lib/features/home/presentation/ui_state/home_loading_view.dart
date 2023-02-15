@@ -21,7 +21,7 @@ class HomeLoadingView extends StatelessWidget {
           alignment: Alignment.center,
         ).p8().box.color(Colors.transparent).make(),
       ),
-      "Loading your blogs...".text.xl2.makeCentered(),
+      "Loading your blogs...".text.xl2.bold.makeCentered(),
     ].vStack().centered();
   }
 }

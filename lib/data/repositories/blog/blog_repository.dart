@@ -1,4 +1,3 @@
-import 'package:blog_app_riverpod/data/models/validation_error_model.dart';
 import 'package:blog_app_riverpod/data/provider/blog_api/i_blog_api_provider.dart';
 import 'package:blog_app_riverpod/shared/exceptions/no_internet_exception.dart';
 import 'package:multiple_result/multiple_result.dart';
@@ -16,8 +15,8 @@ class BlogRepository implements IBlogRepository {
   BlogRepository({required this.blogApiProvider});
   @override
   Future<Result<BaseException, CreateBlogResponseModel>> createBlog(
-      {required String title, required String body}) async {
-    final result = await blogApiProvider.createBlog(title: title, body: body);
+      {required String title}) async {
+    final result = await blogApiProvider.createBlog(title: title);
 
     if (result.statusCode == 200 || result.statusCode == 201) {
       try {
@@ -27,12 +26,8 @@ class BlogRepository implements IBlogRepository {
       }
     } else if (result.statusCode == 401) {
       return Error(UnauthorizedException(message: result.data.toString()));
-    } else if (result.statusCode == 422) {
-      final validationerror = ValidationError.fromMap(result.data);
-      return Error(
-          ValidationException(message: validationerror.detail.toString()));
     } else {
-      final details = result.data['detail'];
+      final details = result.data['message'];
       if (details == 'No Internet') {
         throw NoInternetException();
       } else {
@@ -45,7 +40,7 @@ class BlogRepository implements IBlogRepository {
   Future<Result<BaseException, bool>> deleteBlogByID(
       {required String id}) async {
     final result = await blogApiProvider.deleteBlogByID(id: id);
-    if (result.statusCode == 204) {
+    if (result.statusCode == 200) {
       try {
         return const Success(true);
       } catch (e) {
@@ -53,12 +48,8 @@ class BlogRepository implements IBlogRepository {
       }
     } else if (result.statusCode == 401) {
       return Error(UnauthorizedException(message: result.data.toString()));
-    } else if (result.statusCode == 422) {
-      final validationerror = ValidationError.fromMap(result.data);
-      return Error(
-          ValidationException(message: validationerror.detail.toString()));
     } else {
-      final details = result.data['detail'];
+      final details = result.data['message'];
       if (details == 'No Internet') {
         throw NoInternetException();
       } else {
@@ -78,12 +69,8 @@ class BlogRepository implements IBlogRepository {
       }
     } else if (result.statusCode == 401) {
       return Error(UnauthorizedException(message: result.data.toString()));
-    } else if (result.statusCode == 422) {
-      final validationerror = ValidationError.fromMap(result.data);
-      return Error(
-          ValidationException(message: validationerror.detail.toString()));
     } else {
-      final details = result.data['detail'];
+      final details = result.data['message'];
       if (details == 'No Internet') {
         throw NoInternetException();
       } else {
@@ -104,12 +91,8 @@ class BlogRepository implements IBlogRepository {
       }
     } else if (result.statusCode == 401) {
       return Error(UnauthorizedException(message: result.data.toString()));
-    } else if (result.statusCode == 422) {
-      final validationerror = ValidationError.fromMap(result.data);
-      return Error(
-          ValidationException(message: validationerror.detail.toString()));
     } else {
-      final details = result.data['detail'];
+      final details = result.data['message'];
       if (details == 'No Internet') {
         throw NoInternetException();
       } else {
@@ -120,19 +103,15 @@ class BlogRepository implements IBlogRepository {
 
   @override
   Future<Result<BaseException, bool>> updateBlogByID(
-      {required String id, required String title, required String body}) async {
+      {required String id, required String title}) async {
     final result =
-        await blogApiProvider.updateBlogByID(id: id, title: title, body: body);
-    if (result.statusCode == 202) {
+        await blogApiProvider.updateBlogByID(id: id, title: title);
+    if (result.statusCode == 200) {
       return const Success(true);
     } else if (result.statusCode == 401) {
       return Error(UnauthorizedException(message: result.data.toString()));
-    } else if (result.statusCode == 422) {
-      final validationerror = ValidationError.fromMap(result.data);
-      return Error(
-          ValidationException(message: validationerror.detail.toString()));
     } else {
-      final details = result.data['detail'];
+      final details = result.data['message'];
       if (details == 'No Internet') {
         throw NoInternetException();
       } else {

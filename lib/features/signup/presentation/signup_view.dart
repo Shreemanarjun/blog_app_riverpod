@@ -2,7 +2,7 @@ import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:blog_app_riverpod/features/signup/presentation/ui_state/signed_up_view.dart';
 import 'package:blog_app_riverpod/features/signup/presentation/ui_state/signup_initial_view.dart';
 import 'package:blog_app_riverpod/features/signup/presentation/ui_state/signup_loading_view.dart';
-import 'package:blog_app_riverpod/features/signup/riverpod/signup_provider.dart';
+import 'package:blog_app_riverpod/features/signup/controller/signup_provider.dart';
 import 'package:blog_app_riverpod/features/signup/states/signup_states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -45,26 +45,24 @@ class SignupView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: Scaffold(
-        appBar: AppBar(title: const Text('Signup')),
-        body: [
-          Consumer(
-            builder: (context, ref, child) {
-              final signupstate = ref.watch(mysignupNotifierProvider);
-              ref.listen<SignupState>(mysignupNotifierProvider,
-                  (previous, next) => signupListener(previous, next, context));
-              return signupstate.map(
-                signupInitial: (s) => const SignupInitialView(),
-                signupLoading: (s) => const SignupLoadingView(),
-                signedUp: (s) => const SignedUpView().objectCenter(),
-                signupError: (s) => const SignupInitialView(),
-                noInternetError: (p0) => const SignupInitialView(),
-              );
-            },
-          ),
-        ].vStack().p16().scrollVertical(),
-      ),
+    return Scaffold(
+      appBar: AppBar(title: const Text('Signup')),
+      body: [
+        Consumer(
+          builder: (context, ref, child) {
+            final signupstate = ref.watch(mysignupNotifierProvider);
+            ref.listen<SignupState>(mysignupNotifierProvider,
+                (previous, next) => signupListener(previous, next, context));
+            return signupstate.map(
+              signupInitial: (s) => const SignupInitialView(),
+              signupLoading: (s) => const SignupLoadingView(),
+              signedUp: (s) => const SignedUpView().objectCenter(),
+              signupError: (s) => const SignupInitialView(),
+              noInternetError: (p0) => const SignupInitialView(),
+            );
+          },
+        ),
+      ].vStack().p16().scrollVertical().safeArea(),
     );
   }
 }
