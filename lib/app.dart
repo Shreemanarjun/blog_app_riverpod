@@ -3,9 +3,10 @@ import 'package:auto_route/auto_route.dart';
 import 'package:blog_app_riverpod/routes/router_pod.dart';
 import 'package:blog_app_riverpod/shared/helper/hide_keyboard.dart';
 
-
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
@@ -22,6 +23,9 @@ class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
     final approuter = ref.watch(autorouterProvider);
+    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+      FlutterNativeSplash.remove();
+    });
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Blog App by Riverpod 💙',
