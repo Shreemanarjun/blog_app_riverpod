@@ -1,4 +1,5 @@
 import 'package:blog_app_riverpod/app.dart';
+import 'package:blog_app_riverpod/init.dart';
 import 'package:blog_app_riverpod/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
@@ -19,6 +20,7 @@ Future<void> main() async {
   await Hive.initFlutter();
   await platform.when(
       android: (() async => await FlutterDisplayMode.setHighRefreshRate()));
+ await init();
   runApp(
     ProviderScope(
       observers: [MyLogger()],
