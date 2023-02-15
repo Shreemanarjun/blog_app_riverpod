@@ -37,7 +37,6 @@ class _LoginInputFieldsState extends State<LoginInputFields> {
       20.heightBox,
       FormBuilderTextField(
         name: 'username',
-        initialValue: 'Arjun',
         decoration: const InputDecoration(
             hintText: "Enter Username",
             labelText: "Username",
@@ -53,7 +52,6 @@ class _LoginInputFieldsState extends State<LoginInputFields> {
       20.heightBox,
       FormBuilderTextField(
         name: 'password',
-        initialValue: 'password',
         decoration: const InputDecoration(
           hintText: "Enter Password",
           labelText: "Password",

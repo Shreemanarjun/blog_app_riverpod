@@ -22,10 +22,8 @@ class MyApp extends ConsumerStatefulWidget {
 class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
-    final approuter = ref.watch(autorouterProvider);
-    SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
       FlutterNativeSplash.remove();
-    });
+    final approuter = ref.watch(autorouterProvider);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Blog App by Riverpod 💙',
