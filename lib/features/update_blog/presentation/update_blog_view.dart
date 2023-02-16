@@ -2,7 +2,7 @@ import 'package:blog_app_riverpod/data/models/blogs_model.dart';
 import 'package:blog_app_riverpod/features/update_blog/presentation/ui_state/blog_update_initial_view.dart';
 import 'package:blog_app_riverpod/features/update_blog/presentation/ui_state/blog_update_updated_view.dart';
 import 'package:blog_app_riverpod/features/update_blog/presentation/ui_state/blog_update_updating_view.dart';
-import 'package:blog_app_riverpod/features/update_blog/riverpod/blog_update_provider.dart';
+import 'package:blog_app_riverpod/features/update_blog/controller/blog_update_provider.dart';
 import 'package:blog_app_riverpod/features/update_blog/state/blog_update_state.dart';
 import 'package:blog_app_riverpod/shared/helper/unauthorized_dialog.dart';
 import 'package:flutter/material.dart';

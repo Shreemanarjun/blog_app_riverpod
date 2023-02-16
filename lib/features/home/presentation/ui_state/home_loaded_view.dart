@@ -1,5 +1,5 @@
 import 'package:blog_app_riverpod/data/models/blogs_model.dart';
-import 'package:blog_app_riverpod/features/home/riverpod/home_provider.dart';
+import 'package:blog_app_riverpod/features/home/controller/home_provider.dart';
 import 'package:blog_app_riverpod/features/update_blog/presentation/update_blog_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';

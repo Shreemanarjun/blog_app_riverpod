@@ -1,6 +1,6 @@
 import 'package:blog_app_riverpod/features/add_blog/presentation/ui_state/blog_adding_view.dart';
 import 'package:blog_app_riverpod/features/add_blog/presentation/ui_state/blog_intital_view.dart';
-import 'package:blog_app_riverpod/features/add_blog/riverpod/add_blog_provider.dart';
+import 'package:blog_app_riverpod/features/add_blog/controller/add_blog_provider.dart';
 import 'package:blog_app_riverpod/features/add_blog/state/blog_add_state.dart';
 import 'package:blog_app_riverpod/shared/helper/unauthorized_dialog.dart';
 import 'package:flutter/material.dart';

@@ -2,11 +2,11 @@ import 'package:blog_app_riverpod/data/provider/blog_api/blog_api_provider.dart'
 import 'package:blog_app_riverpod/data/provider/blog_api/i_blog_api_provider.dart';
 import 'package:blog_app_riverpod/data/repositories/blog/blog_repository.dart';
 import 'package:blog_app_riverpod/data/repositories/blog/i_blog_repository.dart';
-import 'package:blog_app_riverpod/features/add_blog/riverpod/add_blog_provider.dart';
+import 'package:blog_app_riverpod/features/add_blog/controller/add_blog_provider.dart';
 import 'package:blog_app_riverpod/features/add_blog/state/blog_add_state.dart';
-import 'package:blog_app_riverpod/features/home/riverpod/notifier/home_state_notifier.dart';
+import 'package:blog_app_riverpod/features/home/controller/notifier/home_state_notifier.dart';
 import 'package:blog_app_riverpod/features/home/state/home_states.dart';
-import 'package:blog_app_riverpod/features/update_blog/riverpod/blog_update_provider.dart';
+import 'package:blog_app_riverpod/features/update_blog/controller/blog_update_provider.dart';
 import 'package:blog_app_riverpod/features/update_blog/state/blog_update_state.dart';
 import 'package:blog_app_riverpod/shared/riverpod/db_service_provider.dart';
 import 'package:blog_app_riverpod/shared/dio_client/dio_provider.dart';

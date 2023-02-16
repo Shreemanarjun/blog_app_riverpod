@@ -4,7 +4,7 @@ import 'package:blog_app_riverpod/features/home/presentation/ui_state/home_initi
 import 'package:blog_app_riverpod/features/home/presentation/ui_state/home_loaded_view.dart';
 import 'package:blog_app_riverpod/features/home/presentation/ui_state/home_loading_view.dart';
 import 'package:blog_app_riverpod/features/home/presentation/ui_state/home_refreshing_view.dart';
-import 'package:blog_app_riverpod/features/home/riverpod/home_provider.dart';
+import 'package:blog_app_riverpod/features/home/controller/home_provider.dart';
 import 'package:blog_app_riverpod/features/home/state/home_states.dart';
 import 'package:blog_app_riverpod/shared/helper/dialog_helper.dart';
 import 'package:blog_app_riverpod/shared/helper/unauthorized_dialog.dart';

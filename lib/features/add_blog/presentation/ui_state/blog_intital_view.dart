@@ -1,4 +1,4 @@
-import 'package:blog_app_riverpod/features/add_blog/riverpod/add_blog_provider.dart';
+import 'package:blog_app_riverpod/features/add_blog/controller/add_blog_provider.dart';
 import 'package:blog_app_riverpod/shared/helper/hide_keyboard.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
