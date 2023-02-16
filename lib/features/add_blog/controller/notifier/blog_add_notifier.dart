@@ -1,40 +1,36 @@
-import 'package:blog_app_riverpod/data/repositories/blog/i_blog_repository.dart';
 import 'package:blog_app_riverpod/features/add_blog/state/blog_add_state.dart';
+import 'package:blog_app_riverpod/features/home/controller/home_provider.dart';
 import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:let_log/let_log.dart';
 
-class BlogAddNotifier extends StateNotifier<AddBlogState> {
-  final IBlogRepository blogRepository;
-  BlogAddNotifier(this.blogRepository) : super(const BlogInitial());
-  final formKey = GlobalKey<FormBuilderState>();
-  Future<void> addABlog() async {
+class BlogAddNotifier extends AutoDisposeNotifier<AddBlogState> {
+  @override
+  AddBlogState build() {
+    return const BlogInitial();
+  }
+
+  Future<void> addABlog({required String title}) async {
+    state = const BlogAdding();
     Logger.log("add called");
-
     try {
-      if (formKey.currentState!.validate()) {
-        state = const BlogAdding();
-        final title = formKey.currentState!.fields['title']!.value.toString();
-        final result =
-            await blogRepository.createBlog(title: title,);
-
-        result.when((error) {
-          if (error is UnauthorizedException) {
-            state = const BlogUnauthorizedError();
-          } else {
-            state = BlogError(message: error.message, details: "");
-          }
-        }, (createblog) async {
-          //formKey.currentState?.reset();
-          state = const BlogAdded();
-          Future.delayed(const Duration(seconds: 2), () {
-            state = const BlogInitial();
-          });
+      final result = await ref.watch(blogrepository).createBlog(
+            title: title,
+          );
+      result.when((error) {
+        if (error is UnauthorizedException) {
+          state = const BlogUnauthorizedError();
+        } else {
+          state = BlogError(message: error.message, details: "");
+        }
+      }, (createblog) async {
+        //formKey.currentState?.reset();
+        state = const BlogAdded();
+        Future.delayed(const Duration(seconds: 2), () {
+          state = const BlogInitial();
         });
-      }
+      });
     } on DioError catch (e) {
       state = BlogError(message: e.message, details: e.response.toString());
     } catch (e) {

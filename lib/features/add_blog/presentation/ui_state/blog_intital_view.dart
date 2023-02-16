@@ -6,14 +6,33 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class BlogIntitalView extends StatelessWidget {
+class BlogInitialView extends ConsumerStatefulWidget {
   final GlobalKey<FormBuilderState> formkey;
-  const BlogIntitalView({Key? key, required this.formkey}) : super(key: key);
+  const BlogInitialView({
+    super.key,
+    required this.formkey,
+  });
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _BlogInitislViewState();
+}
+
+class _BlogInitislViewState extends ConsumerState<BlogInitialView> {
+  
+  void addBlog() {
+    hideKeyboard(context: context);
+    if (widget.formkey.currentState!.validate()) {
+      final title =
+          widget.formkey.currentState!.fields['title']!.value.toString();
+      ref.read(addBlogProvider.notifier).addABlog(title: title);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return FormBuilder(
-      key: formkey,
+      key: widget.formkey,
       autoFocusOnValidationFailure: true,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: [
@@ -29,15 +48,11 @@ class BlogIntitalView extends StatelessWidget {
               FormBuilderValidators.compose([FormBuilderValidators.required()]),
         ),
         20.heightBox,
-
         30.heightBox,
         Consumer(
           builder: (context, ref, child) {
             return ElevatedButton(
-              onPressed: () async {
-                hideKeyboard(context: context);
-                await ref.read(addBlogProvider.notifier).addABlog();
-              },
+              onPressed: addBlog,
               child: "Add".text.isIntrinsic.make(),
             );
           },
