@@ -16,7 +16,9 @@ class HomeLoadedView extends ConsumerWidget {
         builder: (mcontext) => SizedBox(
               height: MediaQuery.of(context).size.height * 0.6 +
                   MediaQuery.of(context).viewInsets.bottom,
-              child: UpdateBlogView(blogModel),
+              child: UpdateBlogView(
+                blogModel: blogModel,
+              ),
             ));
   }
 
@@ -33,9 +35,9 @@ class HomeLoadedView extends ConsumerWidget {
                     return ListTile(
                       leading: blog.id.text.make(),
                       title: blog.title.text.make(),
-                     
+
                       tileColor: Vx.gray300,
-                  //    isThreeLine: true,
+                      //    isThreeLine: true,
                       trailing: [
                         IconButton(
                             onPressed: () => updateBlogView(context, blog),

@@ -7,26 +7,43 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class BlogUpdateInitialView extends StatelessWidget {
+class BlogUpdateInitialView extends ConsumerStatefulWidget {
   final GlobalKey<FormBuilderState> formkey;
   final BlogModel blogModel;
   const BlogUpdateInitialView({
-    Key? key,
+    super.key,
     required this.formkey,
     required this.blogModel,
-  }) : super(key: key);
+  });
+
+  @override
+  ConsumerState<ConsumerStatefulWidget> createState() =>
+      _BlogUpdateInitialViewState();
+}
+
+class _BlogUpdateInitialViewState extends ConsumerState<BlogUpdateInitialView> {
+  void updateBlog() {
+    if (widget.formkey.currentState!.validate()) {
+      final title = widget.formkey.currentState!.fields['title']!.value;
+      hideKeyboard(context: context);
+      ref.read(updateBlogProvider.notifier).updateBlog(
+            id: widget.blogModel.id.toString(),
+            title: title,
+          );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return FormBuilder(
-      key: formkey,
+      key: widget.formkey,
       autoFocusOnValidationFailure: true,
       autovalidateMode: AutovalidateMode.onUserInteraction,
       child: [
         20.heightBox,
         FormBuilderTextField(
           name: 'title',
-          initialValue: blogModel.title,
+          initialValue: widget.blogModel.title,
           decoration: const InputDecoration(
               labelText: "Title",
               hintText: 'Enter Title Here',
@@ -40,12 +57,7 @@ class BlogUpdateInitialView extends StatelessWidget {
         Consumer(
           builder: (context, ref, child) {
             return ElevatedButton(
-              onPressed: () async {
-                hideKeyboard(context: context);
-                ref
-                    .read(updateBlogProvider.notifier)
-                    .updateBlog(id: blogModel.id.toString());
-              },
+              onPressed: updateBlog,
               child: "Update".text.isIntrinsic.make(),
             );
           },
