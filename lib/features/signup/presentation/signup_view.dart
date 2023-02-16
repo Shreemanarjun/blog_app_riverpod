@@ -8,10 +8,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class SignupView extends StatelessWidget {
+class SignupView extends StatefulWidget {
   const SignupView({Key? key}) : super(key: key);
 
-  void signupListener(SignupState? previous, SignupState next, context) {
+  @override
+  State<SignupView> createState() => _SignupViewState();
+}
+
+class _SignupViewState extends State<SignupView> {
+  void signupListener(SignupState? previous, SignupState next) {
     if (next is SignupError) {
       var snackBar = SnackBar(
         elevation: 0,
@@ -52,7 +57,7 @@ class SignupView extends StatelessWidget {
           builder: (context, ref, child) {
             final signupstate = ref.watch(mysignupNotifierProvider);
             ref.listen<SignupState>(mysignupNotifierProvider,
-                (previous, next) => signupListener(previous, next, context));
+                (previous, next) => signupListener(previous, next));
             return signupstate.map(
               signupInitial: (s) => const SignupInitialView(),
               signupLoading: (s) => const SignupLoadingView(),

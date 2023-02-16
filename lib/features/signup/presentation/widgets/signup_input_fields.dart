@@ -16,7 +16,7 @@ class SignupInputFields extends StatelessWidget {
           name: 'username',
           decoration: const InputDecoration(
               hintText: "Enter Username",
-              labelText: "UserName",
+              labelText: "Username",
               border: UnderlineInputBorder(),
               prefixIcon: Icon(
                 Icons.person_outline_outlined,
