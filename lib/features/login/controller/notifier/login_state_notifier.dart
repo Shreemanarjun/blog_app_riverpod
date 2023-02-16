@@ -1,43 +1,38 @@
-import 'package:blog_app_riverpod/data/repositories/login/i_login_repository.dart';
-import 'package:blog_app_riverpod/data/service/db/i_db_service.dart';
+import 'package:blog_app_riverpod/data/repositories/login/login_repo_pod.dart';
 import 'package:blog_app_riverpod/features/login/state/login_states.dart';
 import 'package:blog_app_riverpod/shared/exceptions/no_internet_exception.dart';
+import 'package:blog_app_riverpod/shared/pods/db_service_provider.dart';
 
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class LoginStateNotifier extends StateNotifier<LoginState> {
-  final ILoginRepository loginRepository;
-  final IDbService dbService;
-  LoginStateNotifier(this.loginRepository, this.dbService)
-      : super(const LoginInitial());
+class LoginStateNotifier extends AutoDisposeNotifier<LoginState> {
+  @override
+  LoginState build() {
+    return const LoginInitial();
+  }
 
-  final formKey = GlobalKey<FormBuilderState>();
-
-  Future<void> login() async {
+  Future<void> login(
+      {required String username, required String password}) async {
     try {
-      final formstate = formKey.currentState;
-      if (formstate!.validate()) {
-        state = const LoginLoading();
-        final username = formstate.fields['username']!.value;
-        final password = formstate.fields['password']!.value;
-        final result =
-            await loginRepository.login(username: username, password: password);
-        result.when((error) {
+      state = const LoginLoading();
+      final result = await ref
+          .watch(myloginRepository)
+          .login(username: username, password: password);
+      result.when((error) {
         if (error.message == 'Invalid username or password') {
-            state = LoginInvalidCredentials(message: error.message);
-            state = const LoginInitial();
-          } else {
-            state = LoginError(message: error.message, details: "");
-          }
-        }, (tokenmodel) async {
-          await dbService.saveTokenModel(tokenModel:tokenmodel);
+          state = LoginInvalidCredentials(message: error.message);
+          state = const LoginInitial();
+        } else {
+          state = LoginError(message: error.message, details: "");
+        }
+      }, (tokenmodel) async {
+        await ref
+            .watch(dbServiceProvider)
+            .saveTokenModel(tokenModel: tokenmodel);
 
-          state = LoggedIn(username: username);
-        });
-      }
+        state = LoggedIn(username: username);
+      });
     } on NoInternetException {
       state = LoginNoInternetError();
     } on DioError catch (e) {

@@ -1,7 +1,6 @@
 name: Flutter Workflow
 
 on:
-  push:
   pull_request:
     # Sequence of patterns matched against refs/heads
     branches:    
