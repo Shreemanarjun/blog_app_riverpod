@@ -4,7 +4,7 @@ import 'package:blog_app_riverpod/data/const/app_urls.dart';
 import 'package:blog_app_riverpod/shared/dio_client/default_api_interceptor.dart';
 import 'package:blog_app_riverpod/shared/helper/bad_certificate_fixer.dart';
 import 'package:blog_app_riverpod/shared/interceptor/let_log_interceptor.dart';
-import 'package:blog_app_riverpod/shared/riverpod/db_service_provider.dart';
+import 'package:blog_app_riverpod/shared/pods/db_service_provider.dart';
 import 'package:dio/dio.dart';
 import 'package:dio_logger/dio_logger.dart';
 import 'package:dio_smart_retry/dio_smart_retry.dart';

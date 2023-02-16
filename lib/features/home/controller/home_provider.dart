@@ -8,7 +8,7 @@ import 'package:blog_app_riverpod/features/home/controller/notifier/home_state_n
 import 'package:blog_app_riverpod/features/home/state/home_states.dart';
 import 'package:blog_app_riverpod/features/update_blog/controller/blog_update_provider.dart';
 import 'package:blog_app_riverpod/features/update_blog/state/blog_update_state.dart';
-import 'package:blog_app_riverpod/shared/riverpod/db_service_provider.dart';
+import 'package:blog_app_riverpod/shared/pods/db_service_provider.dart';
 import 'package:blog_app_riverpod/shared/dio_client/dio_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 

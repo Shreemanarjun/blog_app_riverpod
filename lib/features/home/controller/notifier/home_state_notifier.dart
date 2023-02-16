@@ -3,7 +3,7 @@ import 'package:blog_app_riverpod/data/repositories/blog/i_blog_repository.dart'
 import 'package:blog_app_riverpod/data/service/db/i_db_service.dart';
 import 'package:blog_app_riverpod/features/home/state/home_states.dart';
 import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
-import 'package:blog_app_riverpod/shared/riverpod/history_mixin.dart';
+import 'package:blog_app_riverpod/shared/pods/history_mixin.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:let_log/let_log.dart';
