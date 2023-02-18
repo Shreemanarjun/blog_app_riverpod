@@ -4,6 +4,5 @@ class BaseException implements Exception {
 }
 
 class UnauthorizedException extends BaseException {
-  UnauthorizedException({required super.message});
+  UnauthorizedException({super.message = "Unknown Error"});
 }
-
