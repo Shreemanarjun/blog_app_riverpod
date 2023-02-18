@@ -1,8 +1,6 @@
-import 'package:blog_app_riverpod/features/home/controller/home_provider.dart';
+import 'package:blog_app_riverpod/data/repositories/blog/blog_repository_pod.dart';
 import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:blog_app_riverpod/features/update_blog/state/blog_update_state.dart';
@@ -14,12 +12,9 @@ class BlogUpdateNotifier extends AutoDisposeNotifier<UpdateBlogState> {
     return const BlogUpdateInitial();
   }
 
-  final formKey = GlobalKey<FormBuilderState>();
-
   void updateBlog({required String id, required String title}) async {
     try {
       state = const BlogUpdating();
-      final title = formKey.currentState!.fields['title']!.value.toString();
       Logger.debug(title);
       final result =
           await ref.watch(blogrepository).updateBlogByID(title: title, id: id);

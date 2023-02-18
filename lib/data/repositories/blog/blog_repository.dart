@@ -1,5 +1,6 @@
 import 'package:blog_app_riverpod/data/provider/blog_api/i_blog_api_provider.dart';
 import 'package:blog_app_riverpod/shared/exceptions/no_internet_exception.dart';
+import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
@@ -59,7 +60,8 @@ class BlogRepository implements IBlogRepository {
   }
 
   @override
-  Future<Result<BaseException, BlogsModel>> getAllBlogs() async {
+  Future<Result<BaseException, BlogsModel>> getAllBlogs(
+      {CancelToken? cancelToken}) async {
     final result = await blogApiProvider.getAllBlogs();
     if (result.statusCode == 200) {
       try {
@@ -104,8 +106,7 @@ class BlogRepository implements IBlogRepository {
   @override
   Future<Result<BaseException, bool>> updateBlogByID(
       {required String id, required String title}) async {
-    final result =
-        await blogApiProvider.updateBlogByID(id: id, title: title);
+    final result = await blogApiProvider.updateBlogByID(id: id, title: title);
     if (result.statusCode == 200) {
       return const Success(true);
     } else if (result.statusCode == 401) {

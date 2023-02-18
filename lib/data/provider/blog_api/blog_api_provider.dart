@@ -25,8 +25,8 @@ class BlogApiProvider implements IBlogApiProvider {
   }
 
   @override
-  Future<Response> getAllBlogs() {
-    return dio.get(AppURLs.getAllBlogUrl);
+  Future<Response> getAllBlogs({CancelToken? cancelToken}) {
+    return dio.get(AppURLs.getAllBlogUrl,cancelToken: cancelToken);
   }
 
   @override

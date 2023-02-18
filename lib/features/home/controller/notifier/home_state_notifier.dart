@@ -1,109 +1,101 @@
+import 'dart:async';
+
 import 'package:blog_app_riverpod/data/models/blogs_model.dart';
-import 'package:blog_app_riverpod/data/repositories/blog/i_blog_repository.dart';
-import 'package:blog_app_riverpod/data/service/db/i_db_service.dart';
+import 'package:blog_app_riverpod/features/home/controller/home_provider.dart';
 import 'package:blog_app_riverpod/features/home/state/home_states.dart';
 import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
-import 'package:blog_app_riverpod/shared/pods/history_mixin.dart';
-import 'package:dio/dio.dart';
+import 'package:blog_app_riverpod/shared/riverpod_ext/cache_extensions.dart';
+import 'package:blog_app_riverpod/shared/riverpod_ext/cancel_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:let_log/let_log.dart';
 
-class HomeStateNotifier extends StateNotifier<HomeState>
-    with HistoryMixin<HomeState> {
-  final IBlogRepository blogRepository;
-  final IDbService dbService;
-
-  HomeStateNotifier(this.blogRepository, this.dbService) : super(HomeInitial());
+class HomeStateNotifier extends AutoDisposeAsyncNotifier<HomeState> {
+  @override
+  FutureOr<HomeState> build() {
+    getAllBlogs();
+    return future;
+  }
 
   Future<void> getAllBlogs() async {
     Logger.log("called get all blogs");
-    try {
-      state = HomeLoading(getCurrentBlogs());
-      final result = await blogRepository.getAllBlogs();
-      result.when((error) {
+    state = await AsyncValue.guard(() async {
+      /// caches for 3 seconds (it's a default duration for this example)
+      final link = ref.cacheFor();
+
+      /// creates a cancel token with auto cancel option
+      final token = ref.cancelToken();
+      state = AsyncData(HomeLoading(getCurrentBlogs()));
+      final result =
+          await ref.watch(blogrepository).getAllBlogs(cancelToken: token);
+      return result.when((error) {
         if (error is UnauthorizedException) {
-          state = HomeUnauthorized();
+          return HomeUnauthorized();
         } else {
-          state = HomeError(message: error.message, details: "");
+          if (error.message == "user cancelled request") {
+            link.close();
+          }
+          return HomeError(message: error.message, details: "");
         }
       }, (blogs) {
-        state = HomeLoaded(blogs);
+        return HomeLoaded(blogs);
       });
-    } on DioError catch (e) {
-      state = HomeError(message: e.message, details: e.response.toString());
-    } catch (e) {
-      state = HomeError(message: "Unknown Error ${e.toString()}", details: "");
-    }
+    });
   }
 
   Future<void> refreshBlogs() async {
     Logger.log("called refresh all blogs");
     final currentblogs = getCurrentBlogs();
-    try {
-      ///populate blogs while refreshing
-      state = HomeRefreshing(currentblogs);
-      final result = await blogRepository.getAllBlogs();
-      result.when((error) {
+    state = AsyncData(HomeRefreshing(currentblogs));
+    state = await AsyncValue.guard(() async {
+      /// caches for 3 seconds (it's a default duration for this example)
+      final link = ref.cacheFor();
+
+      /// creates a cancel token with auto cancel option
+      final token = ref.cancelToken();
+      final result = await ref.watch(blogrepository).getAllBlogs(cancelToken: token);
+      return result.when((error) {
         if (error is UnauthorizedException) {
-          state = HomeUnauthorized();
+          return HomeUnauthorized();
         } else {
-          state = HomeRefreshError(currentblogs);
-          state = HomeLoaded(currentblogs);
+          if (error.message == "user cancelled request") {
+            link.close();
+          }
+          return (HomeRefreshError(currentblogs));
         }
       }, (blogs) {
         if (blogs != currentblogs) {
-          state = HomeLoaded(blogs);
+          return HomeLoaded(blogs);
         } else {
-          state = HomeRefreshError(currentblogs);
-          state = HomeLoaded(blogs);
+          return HomeLoaded(blogs);
         }
       });
-    } on DioError catch (e) {
-      state = HomeError(message: e.message, details: e.response.toString());
-    } catch (e) {
-      state = HomeError(message: "Unknown Error ${e.toString()}", details: "");
-    }
+    });
   }
 
   Future<void> deleteBlog({required String id}) async {
     final currentblogs = getCurrentBlogs();
-    try {
-      state = HomeBlogDeleting(currentblogs);
-      final result = await blogRepository.deleteBlogByID(id: id);
-      result.when((error) {
+    state = AsyncData(HomeBlogDeleting(currentblogs));
+    state = await AsyncValue.guard(() async {
+      final result = await ref.watch(blogrepository).deleteBlogByID(id: id);
+      return result.when((error) {
         if (error is UnauthorizedException) {
-          state = HomeUnauthorized();
+          return HomeUnauthorized();
         } else {
-          state = HomeRefreshError(currentblogs);
+          return HomeRefreshError(currentblogs);
         }
       }, (isDeleted) async {
-        state = HomeBlogDeleted(currentblogs);
-        final result = await blogRepository.getAllBlogs();
-        result.when((error) {
-          if (error.message == 'Unauthorized') {
-            state = HomeUnauthorized();
-          } else {
-            state = HomeError(message: error.message, details: "");
-          }
-        }, (blogs) {
-          state = HomeLoaded(blogs);
-        });
+        refreshBlogs();
+        return HomeBlogDeleted(currentblogs);
       });
-    } on DioError catch (e) {
-      state = HomeError(message: e.message, details: e.response.toString());
-    } catch (e) {
-      state = HomeError(message: "Unknown Error ${e.toString()}", details: "");
-    }
+    });
   }
 
-  void changeStatusToInitial() {
-    state = HomeInitial();
-  }
+
 
   BlogsModel getCurrentBlogs() {
-    if (state is HomeLoaded) {
+    if (state is AsyncData) {
       //get all current blogs
-      final currentblogs = (state as HomeLoaded).blogmodel;
+      final currentblogs = (state.value)?.blogmodel ?? BlogsModel(blogs: []);
       return currentblogs;
     }
     return BlogsModel(blogs: []);

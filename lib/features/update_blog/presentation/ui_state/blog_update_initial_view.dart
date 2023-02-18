@@ -49,8 +49,16 @@ class _BlogUpdateInitialViewState extends ConsumerState<BlogUpdateInitialView> {
               hintText: 'Enter Title Here',
               floatingLabelBehavior: FloatingLabelBehavior.always,
               border: OutlineInputBorder()),
-          validator:
-              FormBuilderValidators.compose([FormBuilderValidators.required()]),
+          validator: FormBuilderValidators.compose([
+            FormBuilderValidators.required(),
+            (value) {
+              if (value == widget.blogModel.title) {
+                return "Please change something in text to update";
+              } else {
+                return null;
+              }
+            }
+          ]),
         ),
         20.heightBox,
         30.heightBox,
