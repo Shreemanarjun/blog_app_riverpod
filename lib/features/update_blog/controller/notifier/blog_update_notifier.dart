@@ -12,12 +12,17 @@ class BlogUpdateNotifier extends AutoDisposeNotifier<UpdateBlogState> {
     return const BlogUpdateInitial();
   }
 
-  void updateBlog({required String id, required String title}) async {
+  void updateBlog({
+    required String id,
+    required String title,
+    required String description,
+  }) async {
     try {
       state = const BlogUpdating();
       Logger.debug(title);
-      final result =
-          await ref.watch(blogrepository).updateBlogByID(title: title, id: id);
+      final result = await ref
+          .watch(blogrepository)
+          .updateBlogByID(title: title, id: id, description: description);
 
       result.when((error) {
         if (error is UnauthorizedException) {

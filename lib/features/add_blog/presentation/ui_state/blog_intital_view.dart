@@ -19,13 +19,16 @@ class BlogInitialView extends ConsumerStatefulWidget {
 }
 
 class _BlogInitislViewState extends ConsumerState<BlogInitialView> {
-  
   void addBlog() {
     hideKeyboard(context: context);
     if (widget.formkey.currentState!.validate()) {
       final title =
           widget.formkey.currentState!.fields['title']!.value.toString();
-      ref.read(addBlogProvider.notifier).addABlog(title: title);
+      final description =
+          widget.formkey.currentState!.fields['description']!.value.toString();
+      ref
+          .read(addBlogProvider.notifier)
+          .addABlog(title: title, description: description);
     }
   }
 
@@ -48,6 +51,16 @@ class _BlogInitislViewState extends ConsumerState<BlogInitialView> {
               FormBuilderValidators.compose([FormBuilderValidators.required()]),
         ),
         20.heightBox,
+        FormBuilderTextField(
+          name: 'description',
+          decoration: const InputDecoration(
+              labelText: "description",
+              hintText: 'Enter Description Here',
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              border: OutlineInputBorder()),
+          validator:
+              FormBuilderValidators.compose([FormBuilderValidators.required()]),
+        ),
         30.heightBox,
         Consumer(
           builder: (context, ref, child) {

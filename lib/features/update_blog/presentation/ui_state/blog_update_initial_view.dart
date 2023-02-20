@@ -24,12 +24,15 @@ class BlogUpdateInitialView extends ConsumerStatefulWidget {
 class _BlogUpdateInitialViewState extends ConsumerState<BlogUpdateInitialView> {
   void updateBlog() {
     if (widget.formkey.currentState!.validate()) {
-      final title = widget.formkey.currentState!.fields['title']!.value;
       hideKeyboard(context: context);
+      final title = widget.formkey.currentState!.fields['title']!.value;
+      final description =
+          widget.formkey.currentState!.fields['description']!.value;
+
       ref.read(updateBlogProvider.notifier).updateBlog(
-            id: widget.blogModel.id.toString(),
-            title: title,
-          );
+          id: widget.blogModel.id.toString(),
+          title: title,
+          description: description);
     }
   }
 
@@ -61,6 +64,25 @@ class _BlogUpdateInitialViewState extends ConsumerState<BlogUpdateInitialView> {
           ]),
         ),
         20.heightBox,
+        FormBuilderTextField(
+          name: 'description',
+          initialValue: widget.blogModel.description,
+          decoration: const InputDecoration(
+              labelText: "Description",
+              hintText: 'Enter Description Here',
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              border: OutlineInputBorder()),
+          validator: FormBuilderValidators.compose([
+            FormBuilderValidators.required(),
+            (value) {
+              if (value == widget.blogModel.description) {
+                return "Please change something in text to update";
+              } else {
+                return null;
+              }
+            }
+          ]),
+        ),
         30.heightBox,
         Consumer(
           builder: (context, ref, child) {

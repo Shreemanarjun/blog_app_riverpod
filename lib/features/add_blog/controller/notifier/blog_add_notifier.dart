@@ -11,12 +11,14 @@ class BlogAddNotifier extends AutoDisposeNotifier<AddBlogState> {
     return const BlogInitial();
   }
 
-  Future<void> addABlog({required String title}) async {
+  Future<void> addABlog(
+      {required String title, required String description}) async {
     state = const BlogAdding();
     Logger.log("add called");
     try {
       final result = await ref.watch(blogrepository).createBlog(
             title: title,
+            description: description
           );
       result.when((error) {
         if (error is UnauthorizedException) {

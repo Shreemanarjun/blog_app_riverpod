@@ -35,9 +35,9 @@ class HomeLoadedView extends ConsumerWidget {
                     return ListTile(
                       leading: blog.id.text.make(),
                       title: blog.title.text.make(),
-
+                      subtitle: blog.description.text.make(),
                       tileColor: Vx.gray300,
-                      //    isThreeLine: true,
+                      isThreeLine: true,
                       trailing: [
                         IconButton(
                             onPressed: () => updateBlogView(context, blog),

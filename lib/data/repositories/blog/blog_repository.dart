@@ -16,8 +16,9 @@ class BlogRepository implements IBlogRepository {
   BlogRepository({required this.blogApiProvider});
   @override
   Future<Result<BaseException, CreateBlogResponseModel>> createBlog(
-      {required String title}) async {
-    final result = await blogApiProvider.createBlog(title: title);
+      {required String title, required String description}) async {
+    final result = await blogApiProvider.createBlog(
+        title: title, description: description);
 
     if (result.statusCode == 200 || result.statusCode == 201) {
       try {
@@ -82,12 +83,12 @@ class BlogRepository implements IBlogRepository {
   }
 
   @override
-  Future<Result<BaseException, BlogModel>> getBlogByID(
+  Future<Result<BaseException, BlogsModel>> getBlogByID(
       {required String id}) async {
     final result = await blogApiProvider.getBlogByID(id: id);
     if (result.statusCode == 200) {
       try {
-        return Success(BlogModel.fromMap(result.data));
+        return Success(BlogsModel.fromMap(result.data));
       } catch (e) {
         return Error(BaseException(message: e.toString()));
       }
@@ -105,8 +106,11 @@ class BlogRepository implements IBlogRepository {
 
   @override
   Future<Result<BaseException, bool>> updateBlogByID(
-      {required String id, required String title}) async {
-    final result = await blogApiProvider.updateBlogByID(id: id, title: title);
+      {required String id,
+      required String title,
+      required String description}) async {
+    final result = await blogApiProvider.updateBlogByID(
+        id: id, title: title, description: description);
     if (result.statusCode == 200) {
       return const Success(true);
     } else if (result.statusCode == 401) {
