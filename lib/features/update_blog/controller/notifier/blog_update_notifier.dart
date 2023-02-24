@@ -38,7 +38,7 @@ class BlogUpdateNotifier extends AutoDisposeNotifier<UpdateBlogState> {
         });
       });
     } on DioError catch (e) {
-      state = BlogGError(message: e.message, details: e.response.toString());
+      state = BlogGError(message: e.message??"", details: e.response.toString());
     } catch (e) {
       state = BlogGError(message: "Unknown Error ${e.toString()}", details: "");
     }

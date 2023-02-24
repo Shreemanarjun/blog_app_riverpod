@@ -1,18 +1,19 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:blog_app_riverpod/features/login/presentation/ui_state/logged_in.dart';
 import 'package:blog_app_riverpod/features/login/presentation/ui_state/login_error.dart';
 import 'package:blog_app_riverpod/features/login/presentation/ui_state/login_initial.dart';
 import 'package:blog_app_riverpod/features/login/presentation/ui_state/login_loading.dart';
-
 import 'package:blog_app_riverpod/features/login/controller/login_providers.dart';
-
 import 'package:blog_app_riverpod/features/login/state/login_states.dart';
-import 'package:blog_app_riverpod/routes/router.gr.dart';
 import 'package:blog_app_riverpod/routes/router_pod.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+import '../../../routes/router.gr.dart';
+
+@RoutePage(name: 'loginRouter', deferredLoading: true,)
 class LoginView extends StatefulWidget {
   const LoginView({Key? key}) : super(key: key);
 

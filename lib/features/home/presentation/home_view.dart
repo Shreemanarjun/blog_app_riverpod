@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:blog_app_riverpod/features/add_blog/controller/add_blog_provider.dart';
 import 'package:blog_app_riverpod/features/add_blog/presentation/add_blog_view.dart';
 import 'package:blog_app_riverpod/features/add_blog/state/blog_add_state.dart';
@@ -15,7 +16,7 @@ import 'package:blog_app_riverpod/shared/helper/unauthorized_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
-
+@RoutePage( name: 'HomeRouter', deferredLoading: true)
 class HomeView extends ConsumerWidget {
   const HomeView({Key? key}) : super(key: key);
 

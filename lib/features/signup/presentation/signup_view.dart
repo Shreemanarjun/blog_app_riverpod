@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:awesome_snackbar_content/awesome_snackbar_content.dart';
 import 'package:blog_app_riverpod/features/signup/presentation/ui_state/signed_up_view.dart';
 import 'package:blog_app_riverpod/features/signup/presentation/ui_state/signup_initial_view.dart';
@@ -8,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:velocity_x/velocity_x.dart';
 
+@RoutePage(name: 'signupRouter', deferredLoading: true)
 class SignupView extends StatefulWidget {
   const SignupView({Key? key}) : super(key: key);
 

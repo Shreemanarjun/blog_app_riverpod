@@ -36,7 +36,7 @@ class LoginStateNotifier extends AutoDisposeNotifier<LoginState> {
     } on NoInternetException {
       state = LoginNoInternetError();
     } on DioError catch (e) {
-      state = LoginError(message: e.message, details: e.response.toString());
+      state = LoginError(message: e.message??"", details: e.response.toString());
     } catch (e) {
       state = LoginError(message: "Unknown Error ${e.toString()}", details: "");
     }
