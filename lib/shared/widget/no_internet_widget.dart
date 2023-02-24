@@ -1,5 +1,6 @@
 import 'package:blog_app_riverpod/shared/dio_client/dio_provider.dart';
 import 'package:blog_app_riverpod/shared/pods/internet_checker_pod.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
@@ -61,7 +62,7 @@ class _InternetCheckerWidgetState extends ConsumerState<InternetCheckerWidget> {
           ..showMaterialBanner(
             MaterialBanner(
               content: const Text(
-                "No Internet available",
+                "No Internet Connection Available",
                 style: TextStyle(color: Colors.red),
               ),
               actions: [
@@ -97,24 +98,26 @@ class _InternetCheckerWidgetState extends ConsumerState<InternetCheckerWidget> {
     });
 
     return Scaffold(
-      body: statusAsync.when(
-          data: (status) {
-            switch (status) {
-              case InternetConnectionStatus.connected:
-                return widget.child;
-              case InternetConnectionStatus.disconnected:
-                return <Widget>[
-                  const RiveAnimation.asset(
-                    "assets/animations/nointernet.riv",
-                    fit: BoxFit.cover,
-                  ).box.height(context.screenHeight).make(),
-                ].stack(clip: Clip.none);
-            }
-          },
-          error: (error, stackTrace) => Center(
-                child: Text(error.toString()),
-              ),
-          loading: () => const Center(child: CircularProgressIndicator())),
+      body: !kIsWeb
+          ? statusAsync.when(
+              data: (status) {
+                switch (status) {
+                  case InternetConnectionStatus.connected:
+                    return widget.child;
+                  case InternetConnectionStatus.disconnected:
+                    return <Widget>[
+                      const RiveAnimation.asset(
+                        "assets/animations/nointernet.riv",
+                        fit: BoxFit.cover,
+                      ).box.height(context.screenHeight).make(),
+                    ].stack(clip: Clip.none);
+                }
+              },
+              error: (error, stackTrace) => Center(
+                    child: Text(error.toString()),
+                  ),
+              loading: () => const Center(child: CircularProgressIndicator()))
+          : widget.child,
     );
   }
 }
