@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 
 import 'package:blog_app_riverpod/routes/router_pod.dart';
 import 'package:blog_app_riverpod/shared/helper/hide_keyboard.dart';
+import 'package:blog_app_riverpod/shared/widget/no_internet_widget.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
@@ -21,7 +22,7 @@ class MyApp extends ConsumerStatefulWidget {
 class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
-      FlutterNativeSplash.remove();
+    FlutterNativeSplash.remove();
     final approuter = ref.watch(autorouterProvider);
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
@@ -36,7 +37,9 @@ class _MyAppState extends ConsumerState<MyApp> {
       ),
       builder: (context, widget) => ResponsiveWrapper.builder(
         ClampingScrollWrapper.builder(
-            context, widget!.onTap(() => hideKeyboard(context: context))),
+            context,
+            InternetCheckerWidget(
+                child: widget!.onTap(() => hideKeyboard(context: context)))),
         breakpoints: const [
           ResponsiveBreakpoint.resize(350, name: MOBILE),
           ResponsiveBreakpoint.autoScale(600, name: TABLET),

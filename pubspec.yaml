@@ -29,7 +29,6 @@ environment:
 dependencies:
   auto_route: ^6.0.0-rc
   awesome_snackbar_content: ^0.1.0
-  connectivity_plus: ^3.0.3
   cupertino_icons: ^1.0.5
   dio: ^5.0.1
   dio_smart_retry: ^5.0.0
@@ -45,6 +44,7 @@ dependencies:
   form_builder_validators: ^8.5.0
   hive: ^2.2.3
   hive_flutter: ^1.1.0
+  internet_connection_checker: ^1.0.0+1
   let_log:
     git:
       url: https://github.com/yungzhu/let_log.git
@@ -54,6 +54,7 @@ dependencies:
   ndialog: ^4.3.0
   platform_info: ^3.2.0
   responsive_framework: ^0.2.0
+  rive: ^0.10.2
   velocity_x: ^3.6.0
 
 dev_dependencies:
