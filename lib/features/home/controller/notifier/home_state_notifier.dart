@@ -7,9 +7,10 @@ import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
 import 'package:blog_app_riverpod/shared/riverpod_ext/cache_extensions.dart';
 import 'package:blog_app_riverpod/shared/riverpod_ext/cancel_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:let_log/let_log.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 class HomeStateNotifier extends AutoDisposeAsyncNotifier<HomeState> {
+  final talker = Talker();
   @override
   FutureOr<HomeState> build() {
     getAllBlogs();
@@ -17,7 +18,6 @@ class HomeStateNotifier extends AutoDisposeAsyncNotifier<HomeState> {
   }
 
   Future<void> getAllBlogs() async {
-    Logger.log("called get all blogs");
     state = await AsyncValue.guard(() async {
       /// caches for 3 seconds (it's a default duration for this example)
       final link = ref.cacheFor();
@@ -43,7 +43,7 @@ class HomeStateNotifier extends AutoDisposeAsyncNotifier<HomeState> {
   }
 
   Future<void> refreshBlogs() async {
-    Logger.log("called refresh all blogs");
+    talker.log("called refresh all blogs");
     final currentblogs = getCurrentBlogs();
     state = AsyncData(HomeRefreshing(currentblogs));
     state = await AsyncValue.guard(() async {
@@ -52,7 +52,8 @@ class HomeStateNotifier extends AutoDisposeAsyncNotifier<HomeState> {
 
       /// creates a cancel token with auto cancel option
       final token = ref.cancelToken();
-      final result = await ref.watch(blogrepository).getAllBlogs(cancelToken: token);
+      final result =
+          await ref.watch(blogrepository).getAllBlogs(cancelToken: token);
       return result.when((error) {
         if (error is UnauthorizedException) {
           return HomeUnauthorized();
@@ -89,8 +90,6 @@ class HomeStateNotifier extends AutoDisposeAsyncNotifier<HomeState> {
       });
     });
   }
-
-
 
   BlogsModel getCurrentBlogs() {
     if (state is AsyncData) {

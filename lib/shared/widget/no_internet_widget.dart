@@ -4,8 +4,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
-import 'package:let_log/let_log.dart';
 import 'package:rive/rive.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class InternetCheckerWidget extends ConsumerStatefulWidget {
@@ -21,6 +21,7 @@ class InternetCheckerWidget extends ConsumerStatefulWidget {
 }
 
 class _InternetCheckerWidgetState extends ConsumerState<InternetCheckerWidget> {
+  final talker = Talker();
   InternetConnectionStatus? lastResult;
   void internetListener(
     InternetConnectionStatus status, {
@@ -28,7 +29,7 @@ class _InternetCheckerWidgetState extends ConsumerState<InternetCheckerWidget> {
   }) {
     switch (status) {
       case InternetConnectionStatus.connected:
-        Logger.debug("Data Reconnected.");
+        talker.debug("Data Reconnected.");
         if (lastResult == InternetConnectionStatus.disconnected) {
           ref.invalidate(dioProvider);
           ScaffoldMessenger.of(context)
@@ -52,11 +53,11 @@ class _InternetCheckerWidgetState extends ConsumerState<InternetCheckerWidget> {
             ScaffoldMessenger.of(context).clearMaterialBanners();
           });
         } else {
-          Logger.debug("First Time");
+          talker.debug("First Time");
         }
         break;
       case InternetConnectionStatus.disconnected:
-        Logger.debug("You are disconnected from the internet.");
+        talker.debug("You are disconnected from the internet.");
         ScaffoldMessenger.of(context)
           ..clearMaterialBanners()
           ..showMaterialBanner(

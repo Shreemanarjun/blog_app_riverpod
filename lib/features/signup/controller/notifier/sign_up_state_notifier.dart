@@ -3,8 +3,7 @@ import 'package:blog_app_riverpod/shared/exceptions/no_internet_exception.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:blog_app_riverpod/features/signup/states/signup_states.dart';
-
-import 'package:let_log/let_log.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 class SignupStateNotifier extends AutoDisposeNotifier<SignupState> {
   @override
@@ -12,6 +11,7 @@ class SignupStateNotifier extends AutoDisposeNotifier<SignupState> {
     return const SignupInitial();
   }
 
+  final talker = Talker();
   Future<void> signup(
       {required String username, required String password}) async {
     try {
@@ -28,7 +28,7 @@ class SignupStateNotifier extends AutoDisposeNotifier<SignupState> {
     } on NoInternetException {
       state = const NoInternetError();
     } catch (e) {
-      Logger.error("catch $e");
+      talker.error("catch $e");
       state = SignupError(message: e.toString());
     }
   }

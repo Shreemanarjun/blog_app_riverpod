@@ -1,9 +1,7 @@
 import 'package:dio/dio.dart';
-import 'package:let_log/let_log.dart';
 
 void defaultAPIErrorHandler(
     DioError err, ErrorInterceptorHandler handler, Dio dio) async {
-  Logger.log(err.type);
   switch (err.type) {
     case DioErrorType.connectionTimeout:
       handler.resolve(Response(
@@ -43,14 +41,12 @@ void defaultAPIErrorHandler(
           requestOptions: err.requestOptions));
       break;
     case DioErrorType.connectionError:
-        handler.resolve(Response(
-            data: {'detail': 'No Internet'},
-            requestOptions: err.requestOptions));
+      handler.resolve(Response(
+          data: {'detail': 'No Internet'}, requestOptions: err.requestOptions));
       break;
     case DioErrorType.unknown:
       handler.resolve(Response(
-          data: {'detail': 'other error'},
-          requestOptions: err.requestOptions));
+          data: {'detail': 'other error'}, requestOptions: err.requestOptions));
       break;
   }
 }

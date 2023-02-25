@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:blog_app_riverpod/features/update_blog/state/blog_update_state.dart';
-import 'package:let_log/let_log.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 class BlogUpdateNotifier extends AutoDisposeNotifier<UpdateBlogState> {
   @override
@@ -12,6 +12,7 @@ class BlogUpdateNotifier extends AutoDisposeNotifier<UpdateBlogState> {
     return const BlogUpdateInitial();
   }
 
+  final talker = Talker();
   void updateBlog({
     required String id,
     required String title,
@@ -19,7 +20,7 @@ class BlogUpdateNotifier extends AutoDisposeNotifier<UpdateBlogState> {
   }) async {
     try {
       state = const BlogUpdating();
-      Logger.debug(title);
+      talker.debug(title);
       final result = await ref
           .watch(blogrepository)
           .updateBlogByID(title: title, id: id, description: description);
@@ -38,7 +39,8 @@ class BlogUpdateNotifier extends AutoDisposeNotifier<UpdateBlogState> {
         });
       });
     } on DioError catch (e) {
-      state = BlogGError(message: e.message??"", details: e.response.toString());
+      state =
+          BlogGError(message: e.message ?? "", details: e.response.toString());
     } catch (e) {
       state = BlogGError(message: "Unknown Error ${e.toString()}", details: "");
     }
