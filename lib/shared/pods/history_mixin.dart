@@ -1,7 +1,8 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:let_log/let_log.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 mixin HistoryMixin<T> on StateNotifier<T> {
+  final talker = Talker();
   final List<T> _history = [];
   int _undoIndex = 0;
   bool get _canUndo => _undoIndex + 1 < _history.length;
@@ -16,7 +17,7 @@ mixin HistoryMixin<T> on StateNotifier<T> {
 
   void undo() {
     if (_canUndo) {
-      Logger.log("undo state");
+      talker.debug("undo state");
       super.state = _history[++_undoIndex];
     }
   }

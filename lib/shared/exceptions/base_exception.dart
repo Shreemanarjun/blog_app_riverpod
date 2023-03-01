@@ -1,9 +1,8 @@
 class BaseException implements Exception {
   final String message;
-  BaseException({required this.message});
+  BaseException({this.message = "Unknown Error"});
 }
 
 class UnauthorizedException extends BaseException {
-  UnauthorizedException({required super.message});
+  UnauthorizedException({super.message});
 }
-

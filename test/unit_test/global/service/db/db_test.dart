@@ -1,6 +1,6 @@
 
 import 'package:blog_app_riverpod/data/models/token_model.dart';
-import 'package:blog_app_riverpod/shared/riverpod/db_service_provider.dart';
+import 'package:blog_app_riverpod/shared/pods/db_service_provider.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:hive_test/hive_test.dart';

@@ -1,5 +1,5 @@
 import 'package:blog_app_riverpod/data/models/blogs_model.dart';
-import 'package:blog_app_riverpod/features/home/riverpod/home_provider.dart';
+import 'package:blog_app_riverpod/features/home/controller/home_provider.dart';
 import 'package:blog_app_riverpod/features/update_blog/presentation/update_blog_view.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -16,7 +16,9 @@ class HomeLoadedView extends ConsumerWidget {
         builder: (mcontext) => SizedBox(
               height: MediaQuery.of(context).size.height * 0.6 +
                   MediaQuery.of(context).viewInsets.bottom,
-              child: UpdateBlogView(blogModel),
+              child: UpdateBlogView(
+                blogModel: blogModel,
+              ),
             ));
   }
 
@@ -33,9 +35,9 @@ class HomeLoadedView extends ConsumerWidget {
                     return ListTile(
                       leading: blog.id.text.make(),
                       title: blog.title.text.make(),
-                     
+                      subtitle: blog.description.text.make(),
                       tileColor: Vx.gray300,
-                  //    isThreeLine: true,
+                      isThreeLine: true,
                       trailing: [
                         IconButton(
                             onPressed: () => updateBlogView(context, blog),

@@ -11,10 +11,10 @@ class BlogApiProvider implements IBlogApiProvider {
   BlogApiProvider({required this.dbService, required this.dio});
 
   @override
-  Future<Response> createBlog({required String title}) {
-    return dio.post(AppURLs.createBlogURl, data: {
-      "title": title,
-    });
+  Future<Response> createBlog(
+      {required String title, required String description}) {
+    return dio.post(AppURLs.createBlogURl,
+        data: {"title": title, 'description': description});
   }
 
   @override
@@ -25,8 +25,8 @@ class BlogApiProvider implements IBlogApiProvider {
   }
 
   @override
-  Future<Response> getAllBlogs() {
-    return dio.get(AppURLs.getAllBlogUrl);
+  Future<Response> getAllBlogs({CancelToken? cancelToken}) {
+    return dio.get(AppURLs.getAllBlogUrl, cancelToken: cancelToken);
   }
 
   @override
@@ -35,10 +35,14 @@ class BlogApiProvider implements IBlogApiProvider {
   }
 
   @override
-  Future<Response> updateBlogByID({required String id, required String title}) {
+  Future<Response> updateBlogByID(
+      {required String id,
+      required String title,
+      required String description}) {
     return dio.patch(AppURLs.updateABlog, data: {
       "blogId": id,
       "title": title,
+      "description":description
     });
   }
 }

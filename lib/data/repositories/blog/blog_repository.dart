@@ -1,5 +1,6 @@
 import 'package:blog_app_riverpod/data/provider/blog_api/i_blog_api_provider.dart';
 import 'package:blog_app_riverpod/shared/exceptions/no_internet_exception.dart';
+import 'package:dio/dio.dart';
 import 'package:multiple_result/multiple_result.dart';
 
 import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
@@ -15,8 +16,9 @@ class BlogRepository implements IBlogRepository {
   BlogRepository({required this.blogApiProvider});
   @override
   Future<Result<BaseException, CreateBlogResponseModel>> createBlog(
-      {required String title}) async {
-    final result = await blogApiProvider.createBlog(title: title);
+      {required String title, required String description}) async {
+    final result = await blogApiProvider.createBlog(
+        title: title, description: description);
 
     if (result.statusCode == 200 || result.statusCode == 201) {
       try {
@@ -59,7 +61,8 @@ class BlogRepository implements IBlogRepository {
   }
 
   @override
-  Future<Result<BaseException, BlogsModel>> getAllBlogs() async {
+  Future<Result<BaseException, BlogsModel>> getAllBlogs(
+      {CancelToken? cancelToken}) async {
     final result = await blogApiProvider.getAllBlogs();
     if (result.statusCode == 200) {
       try {
@@ -80,12 +83,12 @@ class BlogRepository implements IBlogRepository {
   }
 
   @override
-  Future<Result<BaseException, BlogModel>> getBlogByID(
+  Future<Result<BaseException, BlogsModel>> getBlogByID(
       {required String id}) async {
     final result = await blogApiProvider.getBlogByID(id: id);
     if (result.statusCode == 200) {
       try {
-        return Success(BlogModel.fromMap(result.data));
+        return Success(BlogsModel.fromMap(result.data));
       } catch (e) {
         return Error(BaseException(message: e.toString()));
       }
@@ -103,9 +106,11 @@ class BlogRepository implements IBlogRepository {
 
   @override
   Future<Result<BaseException, bool>> updateBlogByID(
-      {required String id, required String title}) async {
-    final result =
-        await blogApiProvider.updateBlogByID(id: id, title: title);
+      {required String id,
+      required String title,
+      required String description}) async {
+    final result = await blogApiProvider.updateBlogByID(
+        id: id, title: title, description: description);
     if (result.statusCode == 200) {
       return const Success(true);
     } else if (result.statusCode == 401) {
