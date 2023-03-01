@@ -18,13 +18,13 @@ class DefaultAPIInterceptor extends Interceptor {
       }
     }
     final tokenmodel = await dbService.getTokenModel();
-      if (tokenmodel!=null) {
-        final Map<String, dynamic> tokenHeader = {
+    if (tokenmodel != null) {
+      final Map<String, dynamic> tokenHeader = {
         'Authorization': 'Bearer ${tokenmodel.accessToken}'
       };
       Logger.log('token header $tokenHeader');
       options.headers.addAll(tokenHeader);
-      }
+    }
 
     super.onRequest(options, handler);
   }
