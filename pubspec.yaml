@@ -59,7 +59,7 @@ dev_dependencies:
   auto_route_generator: ^6.0.0-rc
   build_runner: ^2.3.3
   custom_lint: ^0.2.12
-  flutter_launcher_icons: ^0.11.0
+  flutter_launcher_icons: ^0.12.0
   flutter_lints: ^2.0.1
   flutter_test:
     sdk: flutter
