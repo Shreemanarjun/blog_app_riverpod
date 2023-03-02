@@ -1,10 +1,9 @@
+import 'package:blog_app_riverpod/main.dart';
 import 'package:flutter/material.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 Future<void> showLoadingDialog(
     {required BuildContext context, required String title}) async {
-  final talker = Talker();
   await hideDialog(context: context);
   talker.log("dialog showing");
   if (context.mounted) {

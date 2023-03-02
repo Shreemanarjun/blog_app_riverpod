@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:blog_app_riverpod/main.dart';
 
 import 'package:blog_app_riverpod/routes/router_pod.dart';
 import 'package:blog_app_riverpod/shared/helper/hide_keyboard.dart';
@@ -10,6 +11,7 @@ import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:responsive_framework/responsive_framework.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class MyApp extends ConsumerStatefulWidget {
@@ -47,7 +49,11 @@ class _MyAppState extends ConsumerState<MyApp> {
           ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
         ],
       ),
-      routerConfig: approuter.config(),
+      routerConfig: approuter.config(
+        navigatorObservers: () => [
+          TalkerRouteObserver(talker),
+        ],
+      ),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,

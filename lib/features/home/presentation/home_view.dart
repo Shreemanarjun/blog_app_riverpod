@@ -11,12 +11,15 @@ import 'package:blog_app_riverpod/features/home/controller/home_provider.dart';
 import 'package:blog_app_riverpod/features/home/state/home_states.dart';
 import 'package:blog_app_riverpod/features/update_blog/controller/blog_update_provider.dart';
 import 'package:blog_app_riverpod/features/update_blog/state/blog_update_state.dart';
+import 'package:blog_app_riverpod/main.dart';
 import 'package:blog_app_riverpod/shared/helper/dialog_helper.dart';
 import 'package:blog_app_riverpod/shared/helper/unauthorized_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
-@RoutePage( name: 'HomeRouter', deferredLoading: true)
+
+@RoutePage(name: 'HomeRouter', deferredLoading: true)
 class HomeView extends ConsumerWidget {
   const HomeView({Key? key}) : super(key: key);
 
@@ -99,6 +102,15 @@ class HomeView extends ConsumerWidget {
         appBar: AppBar(
           title: const Text('Blogs'),
           actions: [
+            IconButton(
+                onPressed: () {
+
+
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => TalkerScreen(talker: talker),
+                  ));
+                },
+                icon: const Icon(Icons.info_outline)),
             IconButton(
                 onPressed: () => onLogout(ref),
                 icon: const Icon(Icons.logout_outlined))

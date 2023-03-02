@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:blog_app_riverpod/data/models/blogs_model.dart';
 import 'package:blog_app_riverpod/features/home/controller/home_provider.dart';
 import 'package:blog_app_riverpod/features/home/state/home_states.dart';
+import 'package:blog_app_riverpod/main.dart';
 import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
 import 'package:blog_app_riverpod/shared/riverpod_ext/cache_extensions.dart';
 import 'package:blog_app_riverpod/shared/riverpod_ext/cancel_extensions.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class HomeStateNotifier extends AutoDisposeAsyncNotifier<HomeState> {
-  final talker = Talker();
+ 
   @override
   FutureOr<HomeState> build() {
     getAllBlogs();

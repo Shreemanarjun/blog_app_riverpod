@@ -1,12 +1,11 @@
 import 'package:blog_app_riverpod/data/repositories/blog/blog_repository_pod.dart';
 import 'package:blog_app_riverpod/features/add_blog/state/blog_add_state.dart';
+import 'package:blog_app_riverpod/main.dart';
 import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class BlogAddNotifier extends AutoDisposeNotifier<AddBlogState> {
-  final talker = Talker();
   @override
   AddBlogState build() {
     return const BlogInitial();

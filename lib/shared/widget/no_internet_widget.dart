@@ -1,3 +1,4 @@
+import 'package:blog_app_riverpod/main.dart';
 import 'package:blog_app_riverpod/shared/dio_client/dio_provider.dart';
 import 'package:blog_app_riverpod/shared/pods/internet_checker_pod.dart';
 import 'package:flutter/foundation.dart';
@@ -5,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:internet_connection_checker/internet_connection_checker.dart';
 import 'package:rive/rive.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class InternetCheckerWidget extends ConsumerStatefulWidget {
@@ -21,7 +21,7 @@ class InternetCheckerWidget extends ConsumerStatefulWidget {
 }
 
 class _InternetCheckerWidgetState extends ConsumerState<InternetCheckerWidget> {
-  final talker = Talker();
+
   InternetConnectionStatus? lastResult;
   void internetListener(
     InternetConnectionStatus status, {

@@ -1,9 +1,9 @@
 import 'package:blog_app_riverpod/data/repositories/login/login_repo_pod.dart';
+import 'package:blog_app_riverpod/main.dart';
 import 'package:blog_app_riverpod/shared/exceptions/no_internet_exception.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:blog_app_riverpod/features/signup/states/signup_states.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class SignupStateNotifier extends AutoDisposeNotifier<SignupState> {
   @override
@@ -11,7 +11,6 @@ class SignupStateNotifier extends AutoDisposeNotifier<SignupState> {
     return const SignupInitial();
   }
 
-  final talker = Talker();
   Future<void> signup(
       {required String username, required String password}) async {
     try {

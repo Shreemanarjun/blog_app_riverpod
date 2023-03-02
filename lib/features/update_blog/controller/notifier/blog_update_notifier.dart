@@ -1,10 +1,10 @@
 import 'package:blog_app_riverpod/data/repositories/blog/blog_repository_pod.dart';
+import 'package:blog_app_riverpod/main.dart';
 import 'package:blog_app_riverpod/shared/exceptions/base_exception.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:blog_app_riverpod/features/update_blog/state/blog_update_state.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class BlogUpdateNotifier extends AutoDisposeNotifier<UpdateBlogState> {
   @override
@@ -12,7 +12,7 @@ class BlogUpdateNotifier extends AutoDisposeNotifier<UpdateBlogState> {
     return const BlogUpdateInitial();
   }
 
-  final talker = Talker();
+
   void updateBlog({
     required String id,
     required String title,

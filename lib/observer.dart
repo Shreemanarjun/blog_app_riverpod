@@ -1,8 +1,8 @@
+import 'package:blog_app_riverpod/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 class MyLogger extends ProviderObserver {
-  final talker = Talker();
+
   @override
   void didUpdateProvider(ProviderBase provider, Object? previousValue,
       Object? newValue, ProviderContainer container) {
