@@ -28,7 +28,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   auto_route: ^6.0.0-rc
-  awesome_snackbar_content: ^0.1.0
+  awesome_snackbar_content: ^0.1.1
   cupertino_icons: ^1.0.5
   dio: ^5.0.1
   dio_smart_retry: ^5.0.0
