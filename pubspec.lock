@@ -61,10 +61,10 @@ packages:
     dependency: "direct main"
     description:
       name: auto_route
-      sha256: "0aefa5a58234cd6fdb5a48657895b671632026977c500fed85a376fd032463a4"
+      sha256: "4dc29309e1fb48ea0bc31e8b7c94e4d09ea9052d4df6f7b792b27dc650b09631"
       url: "https://pub.dev"
     source: hosted
-    version: "6.0.0-rc"
+    version: "6.0.0-rc-2"
   auto_route_generator:
     dependency: "direct dev"
     description:
@@ -85,10 +85,10 @@ packages:
     dependency: "direct main"
     description:
       name: awesome_snackbar_content
-      sha256: d4037edcd41208bb9868e6ec3fe16288adf694f96cf827e5c826c83f3250869c
+      sha256: dc63adf86eadb0a4e9e1d9994c3fe09a7b0552076e87152fc292705ec506c80e
       url: "https://pub.dev"
     source: hosted
-    version: "0.1.0"
+    version: "0.1.1"
   boolean_selector:
     dependency: transitive
     description:
@@ -1085,10 +1085,10 @@ packages:
     dependency: "direct main"
     description:
       name: talker_flutter
-      sha256: "0f4eb0e0c5a2858e4dfd7570d91b06f214eed9fd27b551516665a6a13287632f"
+      sha256: b85ab718c1ef097ff0ecc5e0866aa874d3a043531b47160dfb0dc49ce82138de
       url: "https://pub.dev"
     source: hosted
-    version: "2.4.1"
+    version: "2.4.3"
   talker_logger:
     dependency: transitive
     description:
