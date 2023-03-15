@@ -62,6 +62,7 @@ Future<void> main() async {
   /// Run the real app
   runZonedGuarded(
     () => runApp(
+      /// This provider store all the state of descending providers used.
       ProviderScope(
         observers: [
           /// observer for all changes to providers of this providerscope

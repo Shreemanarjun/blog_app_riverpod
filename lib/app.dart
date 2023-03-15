@@ -24,8 +24,12 @@ class MyApp extends ConsumerStatefulWidget {
 class _MyAppState extends ConsumerState<MyApp> {
   @override
   Widget build(BuildContext context) {
+    /// Remove  the splash screen when app starts rendering ,real app
     FlutterNativeSplash.remove();
+
+    /// Get the autorouter to be used for navigation
     final approuter = ref.watch(autorouterProvider);
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Blog App by Riverpod 💙',
@@ -37,11 +41,23 @@ class _MyAppState extends ConsumerState<MyApp> {
           TargetPlatform.android: FadeUpwardsPageTransitionsBuilder(),
         }),
       ),
+
+      /// Use responsive framework, for make application responsive
       builder: (context, widget) => ResponsiveWrapper.builder(
         ClampingScrollWrapper.builder(
-            context,
-            InternetCheckerWidget(
-                child: widget!.onTap(() => hideKeyboard(context: context)))),
+          context,
+
+          /// Add internet checker widget, show the real page on active internet connection,
+          /// and some animation when internet disconnected
+          InternetCheckerWidget(
+            child: widget!.onTap(
+              () {
+                /// Make outside click ,hides the keyboard
+                hideKeyboard(context: context);
+              },
+            ),
+          ),
+        ),
         breakpoints: const [
           ResponsiveBreakpoint.resize(350, name: MOBILE),
           ResponsiveBreakpoint.autoScale(600, name: TABLET),
@@ -49,6 +65,8 @@ class _MyAppState extends ConsumerState<MyApp> {
           ResponsiveBreakpoint.autoScale(1700, name: 'XL'),
         ],
       ),
+
+      /// add autorouter config for navigation
       routerConfig: approuter.config(
         navigatorObservers: () => [
           TalkerRouteObserver(talker),
