@@ -27,10 +27,10 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
-  auto_route: ^6.0.0-rc-2
-  awesome_snackbar_content: ^0.1.1
+  auto_route: ^6.0.0-rc-6
+  awesome_snackbar_content: ^0.1.2
   cupertino_icons: ^1.0.5
-  dio: ^5.0.1
+  dio: ^5.0.2
   dio_smart_retry: ^5.0.0
   flutter:
     sdk: flutter
@@ -39,7 +39,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   flutter_native_splash: ^2.2.16
-  flutter_riverpod: ^2.2.0
+  flutter_riverpod: ^2.3.2
   flutter_svprogresshud: ^1.0.0
   form_builder_validators: ^8.5.0
   hive: ^2.2.3
@@ -56,7 +56,7 @@ dependencies:
   velocity_x: ^3.6.0
 
 dev_dependencies:
-  auto_route_generator: ^6.0.0-rc
+  auto_route_generator: ^6.0.0-rc-1
   build_runner: ^2.3.3
   custom_lint: ^0.2.12
   flutter_launcher_icons: ^0.11.0
