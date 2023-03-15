@@ -1,8 +1,7 @@
 import 'package:blog_app_riverpod/main.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class MyLogger extends ProviderObserver {
-
+class MyProviderObserver extends ProviderObserver {
   @override
   void didUpdateProvider(ProviderBase provider, Object? previousValue,
       Object? newValue, ProviderContainer container) {
