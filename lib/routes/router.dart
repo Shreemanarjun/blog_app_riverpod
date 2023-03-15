@@ -8,8 +8,6 @@ import 'package:blog_app_riverpod/routes/router.gr.dart';
   deferredLoading: true,
 )
 class AppRouter extends $AppRouter {
-  @override
-  RouteType get defaultRouteType => const RouteType.material();
 
   @override
   final List<AutoRoute> routes = [
@@ -17,13 +15,14 @@ class AppRouter extends $AppRouter {
       path: '/',
       page: LoginRouter.page,
       guards: [LoginGuard()],
+      
     ),
     AutoRoute(
-      path: 'signup',
+      path: '/signup',
       page: SignupRouter.page,
     ),
     AutoRoute(
-      path: 'home',
+      path: '/home',
       page: HomeRouter.page,
       guards: [TokenGuard()],
     ),
