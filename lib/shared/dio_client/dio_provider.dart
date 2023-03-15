@@ -1,7 +1,8 @@
 import 'dart:io';
 
 import 'package:blog_app_riverpod/data/const/app_urls.dart';
-import 'package:blog_app_riverpod/main.dart';
+import 'package:blog_app_riverpod/routes/router.gr.dart';
+import 'package:blog_app_riverpod/routes/router_pod.dart';
 import 'package:blog_app_riverpod/shared/dio_client/default_api_interceptor.dart';
 import 'package:blog_app_riverpod/shared/helper/bad_certificate_fixer.dart';
 import 'package:blog_app_riverpod/shared/pods/db_service_provider.dart';
@@ -16,7 +17,6 @@ final dioProvider = Provider.autoDispose((ref) {
 
   dio.interceptors.add(
     TalkerDioLogger(
-      talker: talker,
       settings: const TalkerDioLoggerSettings(
         printRequestHeaders: true,
         printResponseHeaders: true,
@@ -27,10 +27,21 @@ final dioProvider = Provider.autoDispose((ref) {
     ),
   );
   dio.interceptors.addAll([
+    InterceptorsWrapper(
+      onError: (e, handler) async {
+        if (e.response!.statusCode == 401) {
+          await ref.read(dbServiceProvider).removeTokenModel();
+          await ref.read(autorouterProvider).replaceAll([
+            const LoginRouter(),
+          ]);
+        }
+        handler.next(e);
+      },
+    ),
     DefaultAPIInterceptor(dio: dio, dbService: ref.watch(dbServiceProvider)),
     RetryInterceptor(
         dio: dio,
-        logPrint: talker.log, // specify log function (optional)
+        //   logPrint: talker.log, // specify log function (optional)
         // retry count (optional)
         retries: 2,
         retryDelays: [
